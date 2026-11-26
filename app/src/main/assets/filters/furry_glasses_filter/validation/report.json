@@ -1,0 +1,162 @@
+{
+  "package": "Furry Glasses",
+  "status": "STATIC_VALIDATION_PASSED_RUNTIME_NOT_TESTED",
+  "checks": {
+    "glbVersion2": true,
+    "requiredAttributesOnly": true,
+    "uint16Indices": true,
+    "embeddedSrgbTexture": true,
+    "singlePrimitivePerLod": true,
+    "opaqueMaterial": true,
+    "faceHeadTempleOcclusionDeclared": true,
+    "twoOpenEyeApertures": true,
+    "calibrationDefaultsWithinRanges": true,
+    "cameraMirrorNotBaked": true,
+    "runtimeOrDeviceVerified": false,
+    "openEyeAperturesUnfilledByBridge": true,
+    "closedWatertightModelComponents": true,
+    "bridgeInsideEyeAperture": false,
+    "calibrationFieldsCoverTemplePaths": true,
+    "modelRebuildScriptSmokeTest": true,
+    "manifestAssetHashesMatch": true
+  },
+  "lods": {
+    "a": {
+      "triangles": 6408,
+      "vertices": 3214,
+      "drawCalls": 1,
+      "watertight": true,
+      "connectedComponents": 7,
+      "indexComponentType": "UNSIGNED_SHORT",
+      "vertexAttributes": [
+        "NORMAL",
+        "POSITION",
+        "TEXCOORD_0"
+      ],
+      "eyeApertureInteriorTriangleCentroids": [
+        0,
+        0
+      ],
+      "bytes": 1290072
+    },
+    "b": {
+      "triangles": 4528,
+      "vertices": 2274,
+      "drawCalls": 1,
+      "watertight": true,
+      "connectedComponents": 7,
+      "indexComponentType": "UNSIGNED_SHORT",
+      "vertexAttributes": [
+        "NORMAL",
+        "POSITION",
+        "TEXCOORD_0"
+      ],
+      "eyeApertureInteriorTriangleCentroids": [
+        0,
+        0
+      ],
+      "bytes": 1248712
+    },
+    "c": {
+      "triangles": 3272,
+      "vertices": 1646,
+      "drawCalls": 1,
+      "watertight": true,
+      "connectedComponents": 7,
+      "indexComponentType": "UNSIGNED_SHORT",
+      "vertexAttributes": [
+        "NORMAL",
+        "POSITION",
+        "TEXCOORD_0"
+      ],
+      "eyeApertureInteriorTriangleCentroids": [
+        0,
+        0
+      ],
+      "bytes": 1221080
+    }
+  },
+  "assets": [
+    {
+      "path": "thumbnail.png",
+      "bytes": 73507,
+      "sha256": "c13408486e4829a050bf75d79f3e728ba572ba2750da0fda7f926bccf2ea7056"
+    },
+    {
+      "path": "assets/furry_plush_pink_srgb.png",
+      "bytes": 1040468,
+      "sha256": "68de97f7e11a109ded45c9116fdb7e290f8a93c7f63323f96f1ee11a3f35787f"
+    },
+    {
+      "path": "models/furry_glasses_lod_a.glb",
+      "bytes": 1290072,
+      "sha256": "a5a11205faeaee4b798475f311f7cdf55b7393a792f1ad94ce243b8eba5da53d"
+    },
+    {
+      "path": "models/furry_glasses_lod_b.glb",
+      "bytes": 1248712,
+      "sha256": "4ea696c855e6e0809759f9acc622b4c7b5ff32d9f5083927d545339bb4c0b5e6"
+    },
+    {
+      "path": "models/furry_glasses_lod_c.glb",
+      "bytes": 1221080,
+      "sha256": "44053ff6ef195709c311a0b4e4e394216d8256754d40eb7624c7a108375121b7"
+    }
+  ],
+  "calibrationFieldCount": 49,
+  "knownLimitations": [
+    "Current Xelvic runtime does not accept GLB archive entries or render MODEL_3D props.",
+    "Eye anchor semantics and canonical projection must be matched to the future geometry provider.",
+    "Head and temple proxy dimensions are starting estimates; anatomy-specific visual clipping requires device calibration.",
+    "Static geometry validation cannot certify perfect occlusion or placement on all faces and camera devices.",
+    "The package preview is a static authoring illustration; actual eye-line alignment and depth occlusion require the target Xelvic renderer and device calibration."
+  ],
+  "lodsDetailed": {
+    "a": {
+      "triangles": 6408,
+      "vertices": 3214,
+      "watertight": true,
+      "components": 7,
+      "boundsFW": [
+        1.123505,
+        0.37,
+        0.492958
+      ],
+      "apertureInteriorTriangleCentroids": [
+        0,
+        0
+      ]
+    },
+    "b": {
+      "triangles": 4528,
+      "vertices": 2274,
+      "watertight": true,
+      "components": 7,
+      "boundsFW": [
+        1.122681,
+        0.37,
+        0.492974
+      ],
+      "apertureInteriorTriangleCentroids": [
+        0,
+        0
+      ]
+    },
+    "c": {
+      "triangles": 3272,
+      "vertices": 1646,
+      "watertight": true,
+      "components": 7,
+      "boundsFW": [
+        1.123505,
+        0.37,
+        0.492892
+      ],
+      "apertureInteriorTriangleCentroids": [
+        0,
+        0
+      ]
+    }
+  },
+  "geometryCorrection": "Bridge centre span reduced to terminate at the inner rims and avoid covering the eye apertures."
+}

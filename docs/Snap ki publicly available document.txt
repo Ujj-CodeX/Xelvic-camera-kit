@@ -1,0 +1,306 @@
+Snap ki publicly available documentation study karne ke baad meri main finding ye hai:
+
+Snap ka advantage sirf LensCore ke tracking algorithms mein nahi hai. Uska advantage ek integrated runtime architecture mein hai—jahan camera input, tracking, scene management, rendering aur resource lifecycle ek coordinated system ke parts hain.
+
+Ek important limitation: Snap ne LensCore ka complete internal source code ya detailed mobile architecture publicly release nahi kiya hai. Isliye neeche main documented architecture, Snap engineers ke public technical explanations aur unse nikle architectural conclusions ko alag rakh raha hoon.
+1. Snap LensCore ki publicly documented architecture
+Isko conceptual level par aise samjho:
+Camera Input Layer
+
+CameraX / image source · frame acquisition · input processing
+
+
+AR Perception & Tracking Layer
+Face Tracking
+Face detection, identity and tracking state
+Face Geometry
+Landmarks, head pose, face mesh
+Expressions
+Expression weights and facial actions
+Other Perception
+Segmentation, hands, body, world tracking
+
+Conceptual grouping of documented capabilities, not Snap's disclosed internal module diagram.
+
+Shared Tracking Data / Scene Runtime
+
+Head Binding · Face Mesh · Scene Objects · Components · Script Events
+
+
+LensCore Rendering Layer
+3D Rendering
+Meshes, transforms, materials
+2D Rendering
+Face textures and image overlays
+Render Graph
+Cameras, layers, render targets
+Occlusion
+Depth and masking of virtual content
+
+
+
+Output / Compositing
+
+Live preview · Capture output · Final composited frame
+
+
+This is a conceptual reconstruction, not an officially published LensCore block diagram.
+Layer 1 — Persistent Camera Kit Session
+Snap's Android documentation describes a Session as a rendering pipeline connecting:
+1. An input source, such as CameraX.
+2. Camera Kit's AR engine.
+3. The selected Lens.
+4. The final rendering output.
+It explicitly recommends sharing the Session within an appropriate application lifecycle because creating one is costly in memory and CPU resources. It also requires closing the Session safely when it is no longer needed. 
+Snap for Developers+1
+
+
+The architectural implication: switching from one filter to another should not require rebuilding the entire camera and tracking infrastructure.
+
+A persistent runtime should own the camera, tracker, renderer and resource manager. The selected Lens should be replaceable content.
+Layer 2 — Shared perception and face tracking
+This is particularly important for Xelvic.
+
+Lens Studio exposes multiple face capabilities:
+Capability	Purpose
+Head Binding	Attaches 2D/3D objects to the tracked head
+Face Landmarks	Gives tracked facial reference points
+Face Mesh	Provides a deforming 3D representation of the face
+Face Expressions	Provides expression weights
+Face Occluder	Hides virtual objects behind the face
+Retouch	Applies face enhancement effects
+
+Snap documents 93 face landmarks in its Face Landmarks system and 51 facial expression weights in its Face Expressions system. 
+Lens Studio Docs+1
+
+
+There is an especially important distinction in its documentation:
+
+Landmark positions are in screen space, while Head Binding also exposes the head's depth and rotation. 
+Lens Studio Docs+1
+
+
+That means effects can use a common face-tracking abstraction rather than individually implementing their own geometric assumptions.
+
+Snap's Face Mesh is also a 3D mesh that follows facial expressions in real time. 
+Lens Studio Docs+1
+
+
+This is a major architectural lesson: tracking should be a shared service, not a responsibility of each filter package.
+Layer 3 — Scene and effect runtime
+Lens Studio uses a scene graph built from:
+- SceneObject
+- Transform
+- Components
+- Script Components
+- Assets and reusable prefabs
+Scripts attach to scene objects and execute through defined lifecycle events such as OnAwake, OnStart, Update, LateUpdate and OnDestroy. 
+Lens Studio Docs+2
+
+
+Why does this matter?
+
+Imagine three filters:
+- Glasses filter.
+- Full-face makeup.
+- Animated character mask.
+They require different visual assets and rendering behaviour, but they shouldn't each create an independent face tracker.
+
+They should consume shared tracking data and implement different visual components.
+
+This is the difference between a filter collection and an actual filter engine.
+Layer 4 — Render graph and depth
+Snap documents a camera-based rendering architecture:
+- Cameras render selected scene layers.
+- Cameras write to Render Targets.
+- Multiple cameras can share a Render Target.
+- Camera render order controls compositing.
+- Render Targets can be chained.
+- Clear Depth controls depth-buffer behaviour.
+Snap specifically recommends limiting unnecessary Render Targets and cameras for better performance. It also explains that incorrect render ordering can produce visual instability. 
+Lens Studio Docs+1
+
+
+Its face-attached 3D objects use a Head Binding with a Face Occluder child. That allows parts of accessories to disappear behind the user's head as they turn. 
+Lens Studio Docs+1
+
+
+This is significantly more capable than simply drawing textured triangles over a 2D face projection.
+
+2. What we know about LensCore internally
+There is another useful technical source: a 2024 public interview with Snap's Head of Spectacles Software Engineering, Daniel Wagner.
+
+He described the Spectacles architecture as having separate computer-vision and rendering processing paths.
+
+The important design elements included:
+- Computer vision updates pose information.
+- LensCore executes and renders the Lens.
+- A pose predictor estimates where the user's pose will be when the frame becomes visible.
+- The compositor performs additional late-stage corrections.
+The described Spectacles design uses a default 60 Hz LensCore rendering rate, with much more frequent sensor updates and late reprojection. This is a Spectacles-specific architecture, not proof that Android Camera Kit uses the same processor arrangement. 
+Voices of VR Podcast+1
+
+
+There is also a 2022 court filing describing LensCore code directories for face landmarks, expressions, expression analysis, object detection and tracking, along with native C++ components and Android Java/Kotlin bridging. Treat this as a secondary technical description, not an official Snap architecture specification. 
+angeion-public.s3.amazonaws.com
+
+
+The important engineering principle is:
+
+Tracking updates and rendering updates do not necessarily need to operate at the same frequency.
+
+The renderer should consume fresh, timestamped tracking information and maintain a stable visual result even when inference and rendering have different schedules.
+
+3. Now, why Xelvic isn't giving consistent results
+Based on the Xelvic branch architecture we previously reviewed, I see some fundamental differences. 
+Problem 1 — Multiple tracking paths
+
+Your current architecture routes conventional filters through ML Kit/Canvas and face-mesh filters through MediaPipe/GL.
+Architectural inconsistency
+These paths do not necessarily share identical landmark definitions, timestamps, coordinate transformations or tracking behaviour.
+
+Switching effect types can therefore change the underlying geometry and visual alignment.
+
+Problem 2 — 2D mesh rendering instead of proper 3D rendering
+
+Your current GL face overlay uses XY positions in NDC, with depth testing disabled.
+Depth and occlusion limitation
+A filter may look fine when facing the camera but behave differently during head rotation, depth changes and partial face occlusion.
+
+Problem 3 — UV and topology compatibility
+
+Your mesh system depends on a specific 468-point topology and pinned UV layout/model fingerprint.
+Package compatibility risk
+A texture authored against a different UV layout can technically load while producing incorrect mapping.
+
+Problem 4 — Preview and capture are different paths
+
+Your current photo processing path performs a separate MediaPipe image-mode detection and Canvas rendering.
+Output parity risk
+A filter looking stable in preview does not automatically mean the captured image will have identical geometry and alignment.
+
+These are not minor shader problems. They are runtime architecture problems.
+4. The architecture I would build for Xelvic
+I would not try to copy LensCore internally. I'd reproduce its most important architectural principles.
+Proposed Xelvic Runtime Architecture
+CameraSession
+Single CameraX source · frame normalization · timestamps · orientation
+
+PerceptionSession — persistent
+
+Shared by every filter package
+Face detector / tracker
+3D landmarks / pose
+Expression weights
+Tracking confidence / state
+
+
+
+Canonical FaceFrame
+Shared, timestamped, normalized geometry contract
+
+Temporal Stability Layer
+
+Pose smoothing · landmark stabilization · bounded prediction · tracking-loss handling
+
+
+Filter Runtime / Scene Graph
+Load, activate and deactivate effect components without resetting perception
+
+Unified Render Graph
+2D effects
+3D effects
+Depth / occlusion
+Beauty / post-process
+
+
+
+Composited Output
+Live preview and capture through a shared rendering contract
+
+Global Resource Manager
+Asset cache · texture upload · shader cache · GPU resource lifecycle
+
+
+5. The most important part: Canonical FaceFrame
+I would make this the non-negotiable data contract inside Xelvic.
+
+Every package should receive the same FaceFrame, irrespective of whether it is a makeup filter, glasses, moustache, face mask or animated character.
+
+Conceptually:
+data class FaceFrame(
+    val timestampNs: Long,
+    val faceId: Int,
+
+    val landmarks2D: FloatArray,
+    val landmarks3D: FloatArray,
+
+    val headPosition: FloatArray,
+    val headRotation: FloatArray,
+
+    val expressionWeights: FloatArray,
+
+    val trackingConfidence: Float,
+    val trackingState: TrackingState,
+
+    val topologyId: String,
+    val modelFingerprint: String
+)
+
+
+This is an illustrative contract, not a drop-in implementation.
+
+The important requirements:
+- timestampNs must represent the actual source frame, not inference completion time.
+- All coordinates must have explicit coordinate-space definitions.
+- Sensor rotation, image crop, front-camera mirroring and preview transformation must be handled centrally.
+- 3D landmarks must be real 3D positions, not 2D NDC coordinates with a placeholder depth.
+- UV topology and model fingerprint must be validated against each package.
+- Every component must know when tracking becomes unavailable or is reacquired.
+This makes package behaviour much more predictable because the package no longer controls how face data is obtained.
+6. What I would implement first
+I would follow this order rather than continuing to create more filters.
+Priority	Engineering work	Why
+P0	Persistent PerceptionSession	Stop tracker switching/reinitialization across effects
+P0	Canonical FaceFrame	Give every filter identical tracking data
+P0	Coordinate-space normalization	Eliminate orientation, mirroring and crop mismatch
+P1	Timestamp-driven smoothing	Reduce jitter without introducing excessive latency
+P1	True XYZ GL projection	Correct 3D movement and perspective
+P1	Depth prepass and Face Occluder	Correct front/behind-face behaviour
+P1	Unified asset/feature validation	Reject incompatible filter packages
+P2	Shared preview/capture render graph	Make captured results match preview
+P2	Resource preloading and GPU cache	Eliminate filter-switch hitches
+
+For the temporal layer, I would investigate an adaptive One Euro filter for landmarks, quaternion-based smoothing for head rotation and a bounded pose predictor. The smoothing must use timestamps rather than assuming a fixed FPS.
+7. One thing Snap's documentation makes very clear about performance
+Snap recommends controlling the cost of render targets, cameras, ML components and complex materials. Its profiling guidance also highlights CPU, GPU, memory, temperature and power usage. 
+Lens Studio Docs+2
+
+
+We should adopt the same philosophy in Xelvic.
+
+Every package needs to declare its resource requirements. For example, a 2D face paint filter shouldn't need a 3D character pipeline, while a 3D mask should explicitly require face mesh and depth capabilities.
+
+And the runtime—not the package—should decide how those resources are provided.
+
+My actual recommendation
+Stop treating Xelvic as a renderer that loads different filter assets. Start treating it as an AR runtime that executes different effect graphs.
+
+Your most important architectural milestone is not another filter or another shader. It is:
+1. One persistent perception pipeline.
+2. One canonical face-data contract.
+3. One temporal stabilization system.
+4. One shared render graph with real 3D depth.
+5. One versioned package capability system.
+That's the foundation that will make the quality of a filter less dependent on which package happens to be active.
+
+The next task I'd prioritize is a detailed Xelvic architecture refactor audit: map every current Kotlin class to these five runtime layers, identify the exact duplicated responsibilities, and then define the migration sequence without breaking the working Canvas filters.
+Primary references
+These are the most useful official Snap resources for this work:
+- Camera Kit Android — Session and rendering pipeline
+- Head Binding and Face Occluder
+- Face Landmarks
+- Face Mesh
+- Camera Components and Render Targets
+- Lens Performance Optimization
+- Snap engineering discussion — tracking, pose prediction and rendering

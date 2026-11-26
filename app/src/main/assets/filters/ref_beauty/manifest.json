@@ -1,0 +1,85 @@
+{
+  "schema": "xfilter/3",
+  "id": "ref_beauty",
+  "name": "Soft Beauty & Warm Grade",
+  "version": "1.0.0",
+  "description": "Reference post-processing beauty filter with bilateral skin softening and warm color grading",
+  "requires": {
+    "runtime": 3,
+    "features": [
+      "node.post@1",
+      "post.skinSoften@1",
+      "post.colorGrade@1"
+    ],
+    "faces": 1
+  },
+  "params": {
+    "softenAmount": {
+      "type": "float",
+      "default": 0.45,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "warmth": {
+      "type": "float",
+      "default": 0.18,
+      "min": -1.0,
+      "max": 1.0
+    }
+  },
+  "nodes": [
+    {
+      "id": "beauty_skin_soften",
+      "type": "post",
+      "effect": "skinSoften",
+      "mask": "$mask:skin",
+      "params": {
+        "amount": "$softenAmount",
+        "radius": 2.5,
+        "detailPreserve": 0.65,
+        "intensity": 1.0
+      },
+      "renderOrder": 100
+    },
+    {
+      "id": "beauty_warm_grade",
+      "type": "post",
+      "effect": "colorGrade",
+      "params": {
+        "warmth": "$warmth",
+        "contrast": 1.05,
+        "saturation": 1.04,
+        "brightness": 0.02,
+        "intensity": 1.0
+      },
+      "renderOrder": 101
+    }
+  ],
+  "tiers": [
+    {
+      "id": "A",
+      "textureMaxSize": 1024
+    },
+    {
+      "id": "B",
+      "textureMaxSize": 512
+    },
+    {
+      "id": "C",
+      "textureMaxSize": 256,
+      "hide": [
+        "node:beauty_skin_soften"
+      ]
+    }
+  ],
+  "photo": {
+    "clips": "settle",
+    "triggers": "disarmed",
+    "timeSec": 0.0
+  },
+  "preview": {
+    "path": "preview.jpg",
+    "role": "thumbnail"
+  },
+  "assets": []
+}

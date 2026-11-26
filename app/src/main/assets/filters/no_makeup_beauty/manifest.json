@@ -1,0 +1,217 @@
+{
+  "schema": "xfilter/3",
+  "id": "no_makeup_beauty",
+  "name": "No Makeup Beauty",
+  "version": "1.0.0",
+  "description": "Natural beauty enhancement with masked skin smoothing, pore-detail preservation, restrained soft focus, subtle face shaping and a gentle warm grade. No decorative makeup assets or external LUT required.",
+  "preview": "preview.jpg",
+  "requires": {
+    "runtime": 3,
+    "features": [
+      "runtime@3",
+      "node.post@1",
+      "post.warp@1",
+      "post.bilateral@1",
+      "post.softFocus@1",
+      "post.colorGrade@1",
+      "post.vignette@1",
+      "behavior.map@1"
+    ]
+  },
+  "assets": [
+    {
+      "id": "preview_thumb",
+      "type": "image",
+      "uri": "preview.jpg",
+      "sha256": "cef54ba284ffa15ddd6b34ceffefcfc6d9fecf2a87f1fce359d5a237dca81757",
+      "bytes": 46566
+    }
+  ],
+  "compatibility": {
+    "maxFaces": 1,
+    "faceIndex": 0,
+    "blendshapes": []
+  },
+  "params": {
+    "smoothStrength": {
+      "type": "float",
+      "default": 0.48,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "poreDetail": {
+      "type": "float",
+      "default": 0.76,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "softGlow": {
+      "type": "float",
+      "default": 0.22,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "jawSlimming": {
+      "type": "float",
+      "default": 0.12,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "eyeBig": {
+      "type": "float",
+      "default": 0.08,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "noseSlimming": {
+      "type": "float",
+      "default": 0.06,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "chinVLine": {
+      "type": "float",
+      "default": 0.08,
+      "min": -1.0,
+      "max": 1.0
+    },
+    "goldenWarmth": {
+      "type": "float",
+      "default": 0.1,
+      "min": -1.0,
+      "max": 1.0
+    }
+  },
+  "nodes": [
+    {
+      "id": "face_subtle_morph",
+      "type": "post",
+      "effect": "warp",
+      "params": {
+        "jawSlim": "$jawSlimming",
+        "eyeEnlarge": "$eyeBig",
+        "noseSlim": "$noseSlimming",
+        "chinVLine": "$chinVLine",
+        "radiusFW": 0.42,
+        "intensity": 0.72
+      },
+      "opacity": 1.0,
+      "renderOrder": 90
+    },
+    {
+      "id": "skin_bilateral_smooth",
+      "type": "post",
+      "effect": "bilateral",
+      "mask": "$mask:skin",
+      "params": {
+        "amount": "$smoothStrength",
+        "radius": 3.0,
+        "edgePreserve": 0.82,
+        "detailPreserve": "$poreDetail",
+        "intensity": 0.9
+      },
+      "opacity": 1.0,
+      "renderOrder": 100
+    },
+    {
+      "id": "dreamy_soft_focus",
+      "type": "post",
+      "effect": "softFocus",
+      "params": {
+        "amount": "$softGlow",
+        "radius": 3.5,
+        "threshold": 0.64,
+        "warmth": 0.06,
+        "intensity": 0.72
+      },
+      "opacity": 1.0,
+      "renderOrder": 110
+    },
+    {
+      "id": "natural_warm_grade",
+      "type": "post",
+      "effect": "colorGrade",
+      "params": {
+        "warmth": "$goldenWarmth",
+        "contrast": 1.02,
+        "saturation": 1.02,
+        "exposure": 0.02,
+        "tint": 0.0,
+        "intensity": 0.9
+      },
+      "opacity": 1.0,
+      "renderOrder": 120
+    },
+    {
+      "id": "portrait_vignette",
+      "type": "post",
+      "effect": "vignette",
+      "params": {
+        "radius": 0.92,
+        "softness": 0.72,
+        "amount": 0.08,
+        "intensity": 0.65
+      },
+      "opacity": 1.0,
+      "renderOrder": 130
+    }
+  ],
+  "behaviors": [
+    {
+      "id": "fade_beauty_with_face",
+      "type": "map",
+      "input": "face.fade",
+      "inputRange": [
+        0.0,
+        1.0
+      ],
+      "outputRange": [
+        0.0,
+        1.0
+      ],
+      "writes": [
+        {
+          "path": "face_subtle_morph.opacity",
+          "mode": "multiply"
+        },
+        {
+          "path": "skin_bilateral_smooth.opacity",
+          "mode": "multiply"
+        },
+        {
+          "path": "dreamy_soft_focus.opacity",
+          "mode": "multiply"
+        }
+      ]
+    }
+  ],
+  "tiers": {
+    "A": {},
+    "B": {
+      "paramOverrides": {
+        "post:skin_bilateral_smooth.radius": 2.0,
+        "post:dreamy_soft_focus.amount": 0.14
+      }
+    },
+    "C": {
+      "hideNodes": [
+        "face_subtle_morph",
+        "skin_bilateral_smooth"
+      ],
+      "paramOverrides": {
+        "post:dreamy_soft_focus.amount": 0.1,
+        "post:portrait_vignette.amount": 0.05
+      }
+    }
+  },
+  "photo": {
+    "deterministic": true,
+    "timeSec": 0.5,
+    "seed": 42
+  },
+  "budgets": {
+    "maxNodes": 8,
+    "maxBehaviors": 4,
+    "maxPackageBytes": 65536
+  }
+}

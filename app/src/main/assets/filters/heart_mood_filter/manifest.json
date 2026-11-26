@@ -1,0 +1,805 @@
+{
+  "packageFormat": "xelvic-filter-rnd",
+  "schemaVersion": 3,
+  "id": "heart_mood_filter",
+  "name": "Heart Mood Filter",
+  "version": "1.0.0",
+  "description": "A soft pastel pink heart crown floating along the upper hairline, inspired by the supplied reference image.",
+  "minimumRuntimeVersion": 3,
+  "status": "RND_AUTHORING_PACKAGE_NOT_IMPORTABLE_BY_CURRENT_RUNTIME",
+  "coordinateSpace": {
+    "unit": "FACE_WIDTH",
+    "axes": {
+      "x": "+subject-right",
+      "y": "+up",
+      "z": "+camera"
+    },
+    "modelFront": "+Z",
+    "modelUp": "+Y",
+    "packageMirroring": "NONE",
+    "note": "Engine applies front-camera display mirroring exactly once. No asset-side flips or side compensation."
+  },
+  "requires": {
+    "features": [
+      "model.gltf2@1",
+      "anchor.headCenter@1",
+      "occlusion.faceMesh@1",
+      "occlusion.headProxyEllipsoid@1",
+      "behavior.boundedFloat@1"
+    ]
+  },
+  "compatibility": {
+    "maxFaces": 1,
+    "faceIndex": 0,
+    "requiredBlendshapes": [],
+    "minimumYawDeg": -30,
+    "maximumYawDeg": 30
+  },
+  "assets": [
+    {
+      "path": "thumbnail.png",
+      "bytes": 51152,
+      "sha256": "d3734e8d38504fc9cc64753270fc51997b6353ee2e902aa21997fe26ec2d051a"
+    },
+    {
+      "path": "assets/heart_mood_atlas.png",
+      "bytes": 177637,
+      "sha256": "686867fa226aa5e9878e1ed6f8df393fbf661fb36f43ff40f069736af5abc1eb"
+    },
+    {
+      "path": "models/heart_mood_crown_lod_a.glb",
+      "bytes": 577092,
+      "sha256": "5f3c28e18b41346d47c0cc498df5bc4c4d1b1bd989df169417c3de46e7246209"
+    },
+    {
+      "path": "models/heart_mood_crown_lod_b.glb",
+      "bytes": 442304,
+      "sha256": "fee38d1cac5a9bafff816859eb69b03b1bff647f214341f6abe9bcf75a7b387b"
+    },
+    {
+      "path": "models/heart_mood_crown_lod_c.glb",
+      "bytes": 352448,
+      "sha256": "a260b08e318678dab8b527cb14429fb05b91385a0787a7b9615a8f491d0e94a9"
+    }
+  ],
+  "layers": [
+    {
+      "id": "heart_crown",
+      "type": "MODEL_3D",
+      "renderStage": "OPAQUE_MODELS",
+      "lods": [
+        {
+          "tier": "A",
+          "asset": "models/heart_mood_crown_lod_a.glb",
+          "drawCalls": 1,
+          "triangles": 4572,
+          "heartCount": 9
+        },
+        {
+          "tier": "B",
+          "asset": "models/heart_mood_crown_lod_b.glb",
+          "drawCalls": 1,
+          "triangles": 2844,
+          "heartCount": 9
+        },
+        {
+          "tier": "C",
+          "asset": "models/heart_mood_crown_lod_c.glb",
+          "drawCalls": 1,
+          "triangles": 1692,
+          "heartCount": 9
+        }
+      ],
+      "anchor": {
+        "type": "head_center",
+        "index": 0
+      },
+      "geometryDesign": {
+        "unit": "FACE_WIDTH",
+        "heartCount": 9,
+        "heartLayout": [
+          {
+            "id": "heart_01",
+            "centerFW": {
+              "x": -0.43,
+              "y": -0.064,
+              "z": -0.105768
+            },
+            "widthFW": 0.073,
+            "rotationDeg": -12.0
+          },
+          {
+            "id": "heart_02",
+            "centerFW": {
+              "x": -0.322,
+              "y": -0.022,
+              "z": -0.063559
+            },
+            "widthFW": 0.078,
+            "rotationDeg": -8.0
+          },
+          {
+            "id": "heart_03",
+            "centerFW": {
+              "x": -0.215,
+              "y": 0.025,
+              "z": -0.030917
+            },
+            "widthFW": 0.087,
+            "rotationDeg": -5.0
+          },
+          {
+            "id": "heart_04",
+            "centerFW": {
+              "x": -0.108,
+              "y": 0.063,
+              "z": -0.0086
+            },
+            "widthFW": 0.079,
+            "rotationDeg": -2.0
+          },
+          {
+            "id": "heart_05",
+            "centerFW": {
+              "x": 0.0,
+              "y": 0.082,
+              "z": 0.000984
+            },
+            "widthFW": 0.101,
+            "rotationDeg": 2.0
+          },
+          {
+            "id": "heart_06",
+            "centerFW": {
+              "x": 0.108,
+              "y": 0.064,
+              "z": -0.008588
+            },
+            "widthFW": 0.079,
+            "rotationDeg": 5.0
+          },
+          {
+            "id": "heart_07",
+            "centerFW": {
+              "x": 0.215,
+              "y": 0.025,
+              "z": -0.030917
+            },
+            "widthFW": 0.087,
+            "rotationDeg": 8.0
+          },
+          {
+            "id": "heart_08",
+            "centerFW": {
+              "x": 0.322,
+              "y": -0.022,
+              "z": -0.063559
+            },
+            "widthFW": 0.078,
+            "rotationDeg": 10.0
+          },
+          {
+            "id": "heart_09",
+            "centerFW": {
+              "x": 0.43,
+              "y": -0.064,
+              "z": -0.105768
+            },
+            "widthFW": 0.073,
+            "rotationDeg": 13.0
+          }
+        ],
+        "lodSegments": {
+          "A": 64,
+          "B": 40,
+          "C": 24
+        },
+        "lodPolicy": "same heart layout and count; reduce contour tessellation only"
+      },
+      "transform": {
+        "offsetFW": {
+          "x": 0.0,
+          "y": 0.56,
+          "z": 0.18
+        },
+        "scaleFW": 1.0,
+        "rotationDeg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "fit": {
+        "to": "faceWidth",
+        "ratio": 1.0
+      },
+      "occlusion": {
+        "faceMesh": {
+          "enabled": true,
+          "pushBackFW": 0.015,
+          "depthWrite": true,
+          "colorWrite": false
+        },
+        "headProxyEllipsoid": {
+          "enabled": true,
+          "centerOffsetFW": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "radiiFW": {
+            "x": 0.62,
+            "y": 0.82,
+            "z": 0.35
+          },
+          "depthWrite": true,
+          "colorWrite": false
+        },
+        "earTempleProxy": {
+          "enabled": false,
+          "reason": "The crown remains within the upper forehead silhouette and does not require temple/ear occlusion."
+        }
+      },
+      "material": {
+        "workflow": "PBR_METALLIC_ROUGHNESS",
+        "baseColorTexture": "EMBEDDED_SRGB",
+        "alphaMode": "OPAQUE",
+        "mipmaps": true,
+        "metallicFactor": 0.02,
+        "roughnessFactor": 0.31
+      },
+      "behaviors": {
+        "gentleFloat": {
+          "type": "BOUNDED_FLOAT",
+          "maxAngleDeg": 2.2,
+          "maxTranslationFW": 0.006,
+          "periodMs": 3200,
+          "restPose": {
+            "translationFW": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotationQuat": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        "tierPolicy": {
+          "A": "enabled",
+          "B": "enabled",
+          "C": "enabled",
+          "lodOnlyReduces": "meshDetail",
+          "allHeartComponentsPreserved": true
+        }
+      },
+      "lifecycle": {
+        "faceLost": {
+          "holdMs": 160,
+          "fadeMs": 220,
+          "then": "RESET"
+        },
+        "filterSwitch": {
+          "trackerRestart": false,
+          "reuseTrackingState": true,
+          "preloadTexture": true
+        }
+      }
+    }
+  ],
+  "calibration": {
+    "tunableFields": [
+      {
+        "path": "layers.heart_crown.transform.offsetFW.x",
+        "default": 0.0,
+        "min": -0.05,
+        "max": 0.05,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.transform.offsetFW.y",
+        "default": 0.56,
+        "min": 0.48,
+        "max": 0.68,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.transform.offsetFW.z",
+        "default": 0.18,
+        "min": 0.12,
+        "max": 0.24,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.transform.scaleFW",
+        "default": 1.0,
+        "min": 0.9,
+        "max": 1.1,
+        "unit": "multiplier"
+      },
+      {
+        "path": "layers.heart_crown.occlusion.faceMesh.pushBackFW",
+        "default": 0.015,
+        "min": 0.005,
+        "max": 0.025,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.occlusion.headProxyEllipsoid.radiiFW.x",
+        "default": 0.62,
+        "min": 0.56,
+        "max": 0.68,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.occlusion.headProxyEllipsoid.radiiFW.y",
+        "default": 0.82,
+        "min": 0.74,
+        "max": 0.9,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.occlusion.headProxyEllipsoid.radiiFW.z",
+        "default": 0.35,
+        "min": 0.3,
+        "max": 0.4,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.behaviors.gentleFloat.maxAngleDeg",
+        "default": 2.2,
+        "min": 0.0,
+        "max": 3.0,
+        "unit": "deg"
+      },
+      {
+        "path": "layers.heart_crown.behaviors.gentleFloat.maxTranslationFW",
+        "default": 0.006,
+        "min": 0.0,
+        "max": 0.01,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.behaviors.gentleFloat.periodMs",
+        "default": 3200,
+        "min": 2400,
+        "max": 4200,
+        "unit": "ms"
+      },
+      {
+        "path": "layers.heart_crown.lifecycle.faceLost.holdMs",
+        "default": 160,
+        "min": 100,
+        "max": 240,
+        "unit": "ms"
+      },
+      {
+        "path": "layers.heart_crown.lifecycle.faceLost.fadeMs",
+        "default": 220,
+        "min": 160,
+        "max": 320,
+        "unit": "ms"
+      },
+      {
+        "path": "layers.heart_crown.transform.rotationDeg.x",
+        "default": 0.0,
+        "min": -5.0,
+        "max": 5.0,
+        "unit": "deg"
+      },
+      {
+        "path": "layers.heart_crown.transform.rotationDeg.y",
+        "default": 0.0,
+        "min": -5.0,
+        "max": 5.0,
+        "unit": "deg"
+      },
+      {
+        "path": "layers.heart_crown.transform.rotationDeg.z",
+        "default": 0.0,
+        "min": -5.0,
+        "max": 5.0,
+        "unit": "deg"
+      },
+      {
+        "path": "layers.heart_crown.fit.ratio",
+        "default": 1.0,
+        "min": 0.9,
+        "max": 1.1,
+        "unit": "multiplier"
+      },
+      {
+        "path": "layers.heart_crown.occlusion.headProxyEllipsoid.centerOffsetFW.x",
+        "default": 0.0,
+        "min": -0.05,
+        "max": 0.05,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.occlusion.headProxyEllipsoid.centerOffsetFW.y",
+        "default": 0.0,
+        "min": -0.05,
+        "max": 0.05,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.occlusion.headProxyEllipsoid.centerOffsetFW.z",
+        "default": 0.0,
+        "min": -0.05,
+        "max": 0.05,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.material.metallicFactor",
+        "default": 0.02,
+        "min": 0.0,
+        "max": 0.08,
+        "unit": "factor"
+      },
+      {
+        "path": "layers.heart_crown.material.roughnessFactor",
+        "default": 0.31,
+        "min": 0.24,
+        "max": 0.42,
+        "unit": "factor"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.0.centerFW.x",
+        "default": -0.43,
+        "min": -0.445,
+        "max": -0.415,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.0.centerFW.y",
+        "default": -0.064,
+        "min": -0.079,
+        "max": -0.049,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.0.centerFW.z",
+        "default": -0.105768,
+        "min": -0.115768,
+        "max": -0.095768,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.0.widthFW",
+        "default": 0.073,
+        "min": 0.0657,
+        "max": 0.0803,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.0.rotationDeg",
+        "default": -12.0,
+        "min": -15.0,
+        "max": -9.0,
+        "unit": "deg"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.1.centerFW.x",
+        "default": -0.322,
+        "min": -0.337,
+        "max": -0.307,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.1.centerFW.y",
+        "default": -0.022,
+        "min": -0.037,
+        "max": -0.007,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.1.centerFW.z",
+        "default": -0.063559,
+        "min": -0.073559,
+        "max": -0.053559,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.1.widthFW",
+        "default": 0.078,
+        "min": 0.0702,
+        "max": 0.0858,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.1.rotationDeg",
+        "default": -8.0,
+        "min": -11.0,
+        "max": -5.0,
+        "unit": "deg"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.2.centerFW.x",
+        "default": -0.215,
+        "min": -0.23,
+        "max": -0.2,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.2.centerFW.y",
+        "default": 0.025,
+        "min": 0.01,
+        "max": 0.04,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.2.centerFW.z",
+        "default": -0.030917,
+        "min": -0.040917,
+        "max": -0.020917,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.2.widthFW",
+        "default": 0.087,
+        "min": 0.0783,
+        "max": 0.0957,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.2.rotationDeg",
+        "default": -5.0,
+        "min": -8.0,
+        "max": -2.0,
+        "unit": "deg"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.3.centerFW.x",
+        "default": -0.108,
+        "min": -0.123,
+        "max": -0.093,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.3.centerFW.y",
+        "default": 0.063,
+        "min": 0.048,
+        "max": 0.078,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.3.centerFW.z",
+        "default": -0.0086,
+        "min": -0.0186,
+        "max": 0.0014,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.3.widthFW",
+        "default": 0.079,
+        "min": 0.0711,
+        "max": 0.0869,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.3.rotationDeg",
+        "default": -2.0,
+        "min": -5.0,
+        "max": 1.0,
+        "unit": "deg"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.4.centerFW.x",
+        "default": 0.0,
+        "min": -0.015,
+        "max": 0.015,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.4.centerFW.y",
+        "default": 0.082,
+        "min": 0.067,
+        "max": 0.097,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.4.centerFW.z",
+        "default": 0.000984,
+        "min": -0.009016,
+        "max": 0.010984,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.4.widthFW",
+        "default": 0.101,
+        "min": 0.0909,
+        "max": 0.1111,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.4.rotationDeg",
+        "default": 2.0,
+        "min": -1.0,
+        "max": 5.0,
+        "unit": "deg"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.5.centerFW.x",
+        "default": 0.108,
+        "min": 0.093,
+        "max": 0.123,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.5.centerFW.y",
+        "default": 0.064,
+        "min": 0.049,
+        "max": 0.079,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.5.centerFW.z",
+        "default": -0.008588,
+        "min": -0.018588,
+        "max": 0.001412,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.5.widthFW",
+        "default": 0.079,
+        "min": 0.0711,
+        "max": 0.0869,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.5.rotationDeg",
+        "default": 5.0,
+        "min": 2.0,
+        "max": 8.0,
+        "unit": "deg"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.6.centerFW.x",
+        "default": 0.215,
+        "min": 0.2,
+        "max": 0.23,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.6.centerFW.y",
+        "default": 0.025,
+        "min": 0.01,
+        "max": 0.04,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.6.centerFW.z",
+        "default": -0.030917,
+        "min": -0.040917,
+        "max": -0.020917,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.6.widthFW",
+        "default": 0.087,
+        "min": 0.0783,
+        "max": 0.0957,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.6.rotationDeg",
+        "default": 8.0,
+        "min": 5.0,
+        "max": 11.0,
+        "unit": "deg"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.7.centerFW.x",
+        "default": 0.322,
+        "min": 0.307,
+        "max": 0.337,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.7.centerFW.y",
+        "default": -0.022,
+        "min": -0.037,
+        "max": -0.007,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.7.centerFW.z",
+        "default": -0.063559,
+        "min": -0.073559,
+        "max": -0.053559,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.7.widthFW",
+        "default": 0.078,
+        "min": 0.0702,
+        "max": 0.0858,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.7.rotationDeg",
+        "default": 10.0,
+        "min": 7.0,
+        "max": 13.0,
+        "unit": "deg"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.8.centerFW.x",
+        "default": 0.43,
+        "min": 0.415,
+        "max": 0.445,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.8.centerFW.y",
+        "default": -0.064,
+        "min": -0.079,
+        "max": -0.049,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.8.centerFW.z",
+        "default": -0.105768,
+        "min": -0.115768,
+        "max": -0.095768,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.8.widthFW",
+        "default": 0.073,
+        "min": 0.0657,
+        "max": 0.0803,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.heart_crown.geometryDesign.heartLayout.8.rotationDeg",
+        "default": 13.0,
+        "min": 10.0,
+        "max": 16.0,
+        "unit": "deg"
+      }
+    ]
+  },
+  "renderPlan": {
+    "passOrder": [
+      "CAMERA_FRAME",
+      "REGION_MASK",
+      "CAMERA_PIXEL_PASSES",
+      "CLEAR_DEPTH_AND_OCCLUDERS",
+      "OPAQUE_MODELS",
+      "ALPHA_LENSES",
+      "POST_NODES",
+      "OVERLAY_NODES"
+    ],
+    "layerStage": "OPAQUE_MODELS",
+    "facePaintBeforeProps": true,
+    "postPassCount": 1
+  },
+  "performance": {
+    "drawCallsPerTier": {
+      "A": 1,
+      "B": 1,
+      "C": 1
+    },
+    "triangleCountsPerTier": {
+      "A": 4572,
+      "B": 2844,
+      "C": 1692
+    },
+    "texturePolicy": "embedded atlas, decode/cache once, GL upload only on GL thread",
+    "cachePolicy": "LRU and bounded by engine texture budget"
+  },
+  "verification": {
+    "staticAssetChecks": "GENERATED_AND_CHECKED",
+    "physicalDeviceChecks": "NOT_RUN",
+    "runtimeImport": "NOT_SUPPORTED_BY_CURRENT_FILTER_PACKAGEMANAGER"
+  }
+}

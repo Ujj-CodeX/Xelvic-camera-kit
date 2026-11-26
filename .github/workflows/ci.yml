@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main", "research/**" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Set up Python 3
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install jsonschema
+
+    - name: Run Package Validator on Reference Packages
+      run: |
+        python tools/validate_package.py app/src/main/assets/filters/sunflower_forehead
+        python tools/validate_package.py app/src/main/assets/filters/round_glasses
+        python tools/validate_package.py app/src/main/assets/filters/multi_prop
+        python tools/validate_package.py app/src/main/assets/filters/ref_sticker_2d
+        python tools/validate_package.py app/src/main/assets/filters/ref_face_paint
+
+    - name: Run CI Hardcoding Enforcement Check
+      run: |
+        python tools/check_hardcoding.py
+
+    - name: Run Unit Tests with Gradle
+      run: |
+        gradle :app:testDebugUnitTest

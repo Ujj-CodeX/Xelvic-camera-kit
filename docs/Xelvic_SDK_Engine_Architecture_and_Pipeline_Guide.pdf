@@ -1,0 +1,819 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [8 0 R 10 0 R 12 0 R 14 0 R 16 0 R] /Count 5 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold /Encoding /WinAnsiEncoding >>
+endobj
+7 0 obj
+<< /Length 7636 >>
+stream
+0.07 0.11 0.21 rg
+42.00 667.89 511.28 122.00 re f
+0.00 0.72 0.84 rg
+42.00 667.89 6.00 122.00 re f
+1 1 1 rg
+BT /F2 17.5 Tf 60.00 761.89 Td (Xelvic AR & Beauty SDK Engine - Architecture Manual) Tj ET
+0.62 0.88 0.96 rg
+BT /F2 10.5 Tf 60.00 743.89 Td (Deep Code-Trace Pipeline Analysis, Mathematical Contracts & Real-World Use Cases) Tj ET
+0.88 0.91 0.96 rg
+BT /F1 8.8 Tf 60.00 723.89 Td (Engine Scope: CameraX Capture -> MediaPipe 478/52 Perception -> 1-Euro Signal & Latency Compensation) Tj ET
+BT /F1 8.8 Tf 60.00 710.39 Td (Render Scope: Dual-Path OpenGL ES 3.0 RenderGraph \(PBR 3D + Half-Res R8 Masks + Retouch + LUT/Grain/Warp\)) Tj ET
+BT /F1 8.8 Tf 60.00 696.89 Td (Output Scope: 60fps Live Preview + High-Res Offscreen Still Photo + Zero-Copy GPU MP4 + AAC Video Recording) Tj ET
+0.11 0.19 0.34 rg
+42.00 627.89 511.28 22.00 re f
+0.00 0.75 0.85 rg
+42.00 627.89 4.50 22.00 re f
+1 1 1 rg
+BT /F2 11.2 Tf 54.00 634.39 Td (1.  Executive Summary & Core Architectural Principles) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 9.0 Tf 42.00 609.89 Td (The Xelvic AR & Beauty SDK Engine is a production-grade, data-driven real-time augmented reality and beauty) Tj ET
+BT /F1 9.0 Tf 42.00 597.29 Td (rendering engine built in Kotlin and OpenGL ES 3.0. It is architected to achieve Snap Camera Kit parity across 3D) Tj ET
+BT /F1 9.0 Tf 42.00 584.69 Td (PBR accessory rendering, sub-half-pixel 2D facial retouching masks, zero-allocation vsync signal extrapolation,) Tj ET
+BT /F1 9.0 Tf 42.00 572.09 Td (adaptive thermal/FPS governance, and hardware-accelerated photo/video capture.) Tj ET
+0.00 0.55 0.72 rg
+BT /F2 8.8 Tf 50.00 556.69 Td (*) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 556.69 Td (1. Track Once, Render Many \(Zero Camera/Tracker Restarts\): Switching between a 3D glasses filter, a beauty) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 544.49 Td (skin/lip retouch filter, or a multi-pass LUT/grain filter never restarts CameraX or re-initializes the MediaPipe) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 532.29 Td (FaceLandmarker. CameraSession dynamically updates only the requested tracker output flags \(requiresPose,) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 520.09 Td (requiresLandmarks, requestedBlendshapes\) and preloads GL assets via PackagePreloader.) Tj ET
+0.00 0.55 0.72 rg
+BT /F2 8.8 Tf 50.00 506.39 Td (*) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 506.39 Td (2. Unified Monotonic Clock Domain \(SystemClock.elapsedRealtimeNanos\): Every timestamp across CameraX ImageProxy,) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 494.19 Td (OES SurfaceTexture FrameRing, SignalPipeline, LatencyCompensator, and VideoRecorderPipeline is calibrated into the) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 481.99 Td (monotonic CLOCK_BOOTTIME \(FrameClock.elapsedRealtimeNs\) domain via ClockOffsetCalibrator using the lowest 5th-) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 469.79 Td (percentile arrival-minus-sensor offset.) Tj ET
+0.00 0.55 0.72 rg
+BT /F2 8.8 Tf 50.00 456.09 Td (*) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 456.09 Td (3. Single-Owner Input Transform & Single-Stage Mirroring: CameraInputSurface is the single authoritative owner of) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 443.89 Td (front-camera horizontal mirror \(mirrorH\), FILL_CENTER aspect-ratio crop \(cropCenter\), and display rotation for 2D) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 431.69 Td (camera textures. For 3D projections, FacePoseAdapter.createCameraProjection applies the front-camera X flip) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 419.49 Td (exactly once \(m[0] < 0\).) Tj ET
+0.00 0.55 0.72 rg
+BT /F2 8.8 Tf 50.00 405.79 Td (*) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 405.79 Td (4. Unified 3D + 2D Pose-Prediction Latency Compensation \(< 0.5px Fast-Motion Error\): Both 3D meshes) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 393.59 Td (\(FaceMeshRenderer.computePoseCorrectedMvp\) and 2D region masks/warps) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 381.39 Td (\(FacePoseAdapter.mapLandmarkToViewWithPoseDelta\) fold in the rigid 3D prediction delta T = M_pred\(t_render\) *) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 369.19 Td (M_landmark\(t_capture\)^\(-1\), combined with coherent raw-step high-velocity 1-Euro beta boost.) Tj ET
+0.97 0.98 1.00 rg
+0.70 0.77 0.88 RG 0.8 w
+42.00 206.29 511.28 158.00 re B
+0.11 0.19 0.34 rg
+BT /F2 8.8 Tf 52.00 350.29 Td (Figure 1.1 - End-to-End Dual-Path Zero-Allocation SDK Engine Architecture (Capture -> Perception -> Signal -> Render -> Output)) Tj ET
+0.12 0.34 0.56 rg
+54.00 296.29 112.00 44.00 re f
+1 1 1 rg
+BT /F2 8.2 Tf 60.00 326.29 Td (1. CameraX & Clock) Tj ET
+BT /F1 7.3 Tf 60.00 314.29 Td (ImageAnalysis + OES) Tj ET
+BT /F1 7.3 Tf 60.00 304.29 Td (ClockOffsetCalibrator) Tj ET
+0.20 0.25 0.35 RG 1.2 w
+167.50 318.29 m 178.50 318.29 l S
+174.50 321.29 m 178.50 318.29 l 174.50 315.29 l S
+0.14 0.44 0.52 rg
+180.00 296.29 112.00 44.00 re f
+1 1 1 rg
+BT /F2 8.2 Tf 186.00 326.29 Td (2. Perception Stage) Tj ET
+BT /F1 7.3 Tf 186.00 314.29 Td (FastYuvToRgb + Crop) Tj ET
+BT /F1 7.3 Tf 186.00 304.29 Td (MediaPipe 478 + 52 BS) Tj ET
+0.20 0.25 0.35 RG 1.2 w
+293.50 318.29 m 304.50 318.29 l S
+300.50 321.29 m 304.50 318.29 l 300.50 315.29 l S
+0.16 0.48 0.38 rg
+306.00 296.29 112.00 44.00 re f
+1 1 1 rg
+BT /F2 8.2 Tf 312.00 326.29 Td (3. SignalPipeline) Tj ET
+BT /F1 7.3 Tf 312.00 314.29 Td (PoseDecomposer + FW) Tj ET
+BT /F1 7.3 Tf 312.00 304.29 Td (1-Euro Pose & BS Filter) Tj ET
+0.20 0.25 0.35 RG 1.2 w
+419.50 318.29 m 430.50 318.29 l S
+426.50 321.29 m 430.50 318.29 l 426.50 315.29 l S
+0.48 0.32 0.14 rg
+432.00 296.29 112.00 44.00 re f
+1 1 1 rg
+BT /F2 8.2 Tf 438.00 326.29 Td (4. LatencyCompensator) Tj ET
+BT /F1 7.3 Tf 438.00 314.29 Td (35-50ms Extrapolation) Tj ET
+BT /F1 7.3 Tf 438.00 304.29 Td (T_pred * T_lm^-1 Delta) Tj ET
+0.26 0.24 0.52 rg
+54.00 220.29 112.00 44.00 re f
+1 1 1 rg
+BT /F2 8.2 Tf 60.00 250.29 Td (5A. Camera InputRing) Tj ET
+BT /F1 7.3 Tf 60.00 238.29 Td (SingleOwner TexMatrix) Tj ET
+BT /F1 7.3 Tf 60.00 228.29 Td (FrameRing TimestampSync) Tj ET
+0.20 0.25 0.35 RG 1.2 w
+167.50 242.29 m 178.50 242.29 l S
+174.50 245.29 m 178.50 242.29 l 174.50 239.29 l S
+0.44 0.20 0.46 rg
+180.00 220.29 112.00 44.00 re f
+1 1 1 rg
+BT /F2 8.2 Tf 186.00 250.29 Td (5B. 2D Masks & Retouch) Tj ET
+BT /F1 7.3 Tf 186.00 238.29 Td (ControlPointSmoother) Tj ET
+BT /F1 7.3 Tf 186.00 228.29 Td (RegionMask R8 + Recolor) Tj ET
+0.20 0.25 0.35 RG 1.2 w
+293.50 242.29 m 304.50 242.29 l S
+300.50 245.29 m 304.50 242.29 l 300.50 239.29 l S
+0.52 0.18 0.30 rg
+306.00 220.29 112.00 44.00 re f
+1 1 1 rg
+BT /F2 8.2 Tf 312.00 250.29 Td (5C. 3D AR & Occluder) Tj ET
+BT /F1 7.3 Tf 312.00 238.29 Td (Depth Occluder + PBR) Tj ET
+BT /F1 7.3 Tf 312.00 228.29 Td (Cook-Torrance + StudioIBL) Tj ET
+0.20 0.25 0.35 RG 1.2 w
+419.50 242.29 m 430.50 242.29 l S
+426.50 245.29 m 430.50 242.29 l 426.50 239.29 l S
+0.18 0.36 0.26 rg
+432.00 220.29 112.00 44.00 re f
+1 1 1 rg
+BT /F2 8.2 Tf 438.00 250.29 Td (6. Post & Outputs) Tj ET
+BT /F1 7.3 Tf 438.00 238.29 Td (Warp/Skin/LUT/Grain) Tj ET
+BT /F1 7.3 Tf 438.00 228.29 Td (Display + Still + MP4/AAC) Tj ET
+0.30 0.35 0.45 RG 1.0 w
+488.00 296.29 m 488.00 280.29 l S
+110.00 280.29 m 488.00 280.29 l S
+110.00 280.29 m 110.00 264.29 l S
+0.11 0.19 0.34 rg
+42.00 170.29 511.28 22.00 re f
+0.00 0.75 0.85 rg
+42.00 170.29 4.50 22.00 re f
+1 1 1 rg
+BT /F2 11.2 Tf 54.00 176.79 Td (2.  Multi-Threaded Runtime Topology & Zero-Allocation Contracts) Tj ET
+0.78 0.81 0.86 RG 0.6 w
+42.00 38.00 m 553.28 38.00 l S
+0.35 0.38 0.44 rg
+BT /F1 8.0 Tf 42.00 26.00 Td (Xelvic AR Filter & Beauty Engine SDK - Deep Pipeline Reference & Use-Case Guide) Tj ET
+BT /F2 8.5 Tf 508.28 26.00 Td (Page 1) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents 7 0 R >>
+endobj
+9 0 obj
+<< /Length 9796 >>
+stream
+0.09 0.14 0.24 rg
+42.00 805.89 511.28 18.00 re f
+1 1 1 rg
+BT /F2 8.5 Tf 50.00 811.89 Td (Section 2.: Multi-Threaded Runtime Topology & Zero-Allocation Contracts) Tj ET
+BT /F1 8.0 Tf 475.28 811.89 Td (Snap Parity v2.5) Tj ET
+0.14 0.22 0.36 rg
+42.00 767.39 511.28 16.50 re f
+1 1 1 rg
+BT /F2 8.0 Tf 47.00 772.19 Td (Thread / Executor) Tj ET
+BT /F2 8.0 Tf 162.00 772.19 Td (Primary Classes) Tj ET
+BT /F2 8.0 Tf 297.00 772.19 Td (Cadence) Tj ET
+BT /F2 8.0 Tf 359.00 772.19 Td (Sync Mechanism & Memory Contract) Tj ET
+0.96 0.97 0.99 rg
+42.00 750.89 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 750.89 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 755.69 Td (1. CameraAnalysisExec) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 162.00 755.69 Td (CameraController, CameraSession) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 297.00 755.69 Td (15-30 Hz) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 359.00 755.69 Td (Single-close ImageProxy; cadence throttle & Clo..) Tj ET
+1.00 1.00 1.00 rg
+42.00 734.39 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 734.39 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 739.19 Td (2. DedicatedDispatch) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 162.00 739.19 Td (MediaPipeFaceGeometryProvider) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 297.00 739.19 Td (15-30 Hz) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 359.00 739.19 Td (Latest-slot PendingSlot \(capacity 1\); FastYuvTo..) Tj ET
+0.96 0.97 0.99 rg
+42.00 717.89 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 717.89 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 722.69 Td (3. MediaPipe Async) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 162.00 722.69 Td (FaceLandmarker LIVE_STREAM) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 297.00 722.69 Td (15-30 Hz) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 359.00 722.69 Td (Emits FaceGeometrySnapshot -> SignalPipeline.pr..) Tj ET
+1.00 1.00 1.00 rg
+42.00 701.39 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 701.39 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 706.19 Td (4. GL Render Thread) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 162.00 706.19 Td (XelvicGlSurfaceView, RenderGraph) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 297.00 706.19 Td (60-120 Hz) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 359.00 706.19 Td (Zero-alloc consumeLatestPredictedState; GlResou..) Tj ET
+0.96 0.97 0.99 rg
+42.00 684.89 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 684.89 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 689.69 Td (5. AudioRecord Thread) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 162.00 689.69 Td (VideoRecorderPipeline) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 297.00 689.69 Td (~44.1 kHz) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 359.00 689.69 Td (PCM 16-bit mic -> MediaCodec AAC + synchronized..) Tj ET
+0.11 0.19 0.34 rg
+42.00 651.89 511.28 22.00 re f
+0.00 0.75 0.85 rg
+42.00 651.89 4.50 22.00 re f
+1 1 1 rg
+BT /F2 11.2 Tf 54.00 658.39 Td (3.  Stage-by-Stage Code-Trace Pipeline Deep Dive) Tj ET
+0.09 0.28 0.48 rg
+BT /F2 10.0 Tf 42.00 630.89 Td (Stage 1: Camera Capture, ClockOffsetCalibrator & Single-Owner FrameRing) Tj ET
+0.75 0.82 0.90 RG 0.7 w
+42.00 627.39 m 553.28 627.39 l S
+0.14 0.16 0.20 rg
+BT /F1 9.0 Tf 42.00 611.89 Td (Files: CameraController.kt, CameraSession.kt, AnalysisFrame.kt \(ClockOffsetCalibrator\), CameraInputSurface.kt.) Tj ET
+BT /F1 9.0 Tf 42.00 599.29 Td (CameraX binds Preview and ImageAnalysis \(YUV_420_888 or RGBA_8888, Strategy.KEEP_ONLY_LATEST\). On devices where) Tj ET
+BT /F1 9.0 Tf 42.00 586.69 Td (SENSOR_INFO_TIMESTAMP_SOURCE is UNKNOWN \(0\) rather than REALTIME \(1\), raw sensor timestamps can differ from) Tj ET
+BT /F1 9.0 Tf 42.00 574.09 Td (SystemClock.elapsedRealtimeNanos\(\) by an arbitrary boot offset.) Tj ET
+0.00 0.55 0.72 rg
+BT /F2 8.8 Tf 50.00 558.69 Td (*) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 558.69 Td (ClockOffsetCalibrator \(5th-Percentile Lower-Bound Alignment\): Over a 30-frame warmup window, ClockOffsetCalibrator) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 546.49 Td (records diff = arrivalElapsedRealtimeNs - sensorTimestampNs and selects the minimum \(or lowest 5th percentile for) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 534.29 Td (>= 20 samples\), never the median. Using the minimum isolates the true clock-base offset without baking camera) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 522.09 Td (delivery delay into the capture timestamp.) Tj ET
+0.00 0.55 0.72 rg
+BT /F2 8.8 Tf 50.00 508.39 Td (*) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 508.39 Td (CameraInputSurface & DefaultFrameRing \(Path B SINGLE_SCENE_GL\): SurfaceTextureCameraInputSurface attaches a) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 496.19 Td (detached SurfaceTexture to an OES texture exclusively on the GL thread. When readFrame\(\) runs, it computes the) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 483.99 Td (single-owner 4x4 UV matrix T\(0.5,0.5\)*R\(rot\)*S\(signU*scaleU, signV*scaleV\)*T\(-0.5,-0.5\), records \(textureId,) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 471.79 Td (sensorTimestampNs, alignedElapsedRealtimeNs, texMatrix\) into DefaultFrameRing \(8 slots\), and supports tracker-) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 459.59 Td (timestamp-synchronized lookup via findFrameClosestToTimestampNs\(targetTimestampNs, useAlignedClock = true\).) Tj ET
+0.09 0.28 0.48 rg
+BT /F2 10.0 Tf 42.00 442.69 Td (Stage 2: Perception Stage - Fast YUV Conversion, Crop & MediaPipe 478+52) Tj ET
+0.75 0.82 0.90 RG 0.7 w
+42.00 439.19 m 553.28 439.19 l S
+0.14 0.16 0.20 rg
+BT /F1 9.0 Tf 42.00 423.69 Td (Files: MediaPipeFaceGeometryProvider.kt, FastYuvToRgbConverter.kt, FaceGeometrySnapshot.kt.) Tj ET
+BT /F1 9.0 Tf 42.00 411.09 Td (CameraSession.onImageProxyAvailable enforces governor cadence \(15..30 Hz\) and wraps the ImageProxy into an) Tj ET
+BT /F1 9.0 Tf 42.00 398.49 Td (AnalysisFrame carrying per-frame ProjectionParams \(derived from CameraCharacteristics LENS_INTRINSIC_CALIBRATION) Tj ET
+BT /F1 9.0 Tf 42.00 385.89 Td (or physical sensor size + focal length\) and the 3x3 normalized imageToViewTransform.) Tj ET
+0.00 0.55 0.72 rg
+BT /F2 8.8 Tf 50.00 370.49 Td (*) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 370.49 Td (Latest-Slot Dedicated Dispatch \(Zero Queue Buildup\): If an older frame is still waiting in PendingSlot when a) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 358.29 Td (newer camera frame arrives, the older frame is atomically swapped out and closed immediately \(recording) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 346.09 Td (queueOverwriteDrop\). If MediaPipe is still busy with in-flight inference and skipConversionIfPendingFresh is) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 333.89 Td (enabled, YUV conversion is deferred until inference finishes.) Tj ET
+0.00 0.55 0.72 rg
+BT /F2 8.8 Tf 50.00 320.19 Td (*) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 320.19 Td (Metric 3D Pose Calibration \(calibratePoseMatrix\): MediaPipe's raw facial transformation matrix is calibrated) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 307.99 Td (against the analysis-crop vertical FOV \(fovYCropDeg\) and inter-cheek metric width \(#234 right cheek to #454 left) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 295.79 Td (cheek\) so translation \(tx, ty, tz in meters\) and rotation form a true orthonormal rigid pose in metric camera) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 283.59 Td (space \(+X right, +Y up, -Z into screen\).) Tj ET
+0.09 0.28 0.48 rg
+BT /F2 10.0 Tf 42.00 266.69 Td (Stage 3: Signal Layer - Pose Decomposition, 1-Euro Filtering & LatencyCompensator) Tj ET
+0.75 0.82 0.90 RG 0.7 w
+42.00 263.19 m 553.28 263.19 l S
+0.14 0.16 0.20 rg
+BT /F1 9.0 Tf 42.00 247.69 Td (Files: SignalPipeline.kt, PoseDecomposer.kt, PoseFilter.kt, OneEuroFilter.kt, LatencyCompensator.kt,) Tj ET
+BT /F1 9.0 Tf 42.00 235.09 Td (FaceLifecycle.kt. Raw 4x4 matrices are NEVER low-pass filtered element-wise \(which would destroy rotation) Tj ET
+BT /F1 9.0 Tf 42.00 222.49 Td (orthogonality\). Instead:) Tj ET
+0.95 0.96 0.98 rg
+0.76 0.80 0.87 RG 0.7 w
+42.00 77.29 511.28 138.60 re B
+0.18 0.25 0.38 rg
+42.00 200.89 511.28 15.00 re f
+1 1 1 rg
+BT /F2 8.2 Tf 50.00 204.89 Td (SignalPipeline & LatencyCompensator Mathematical Pipeline) Tj ET
+0.10 0.13 0.18 rg
+BT /F3 7.8 Tf 50.00 190.39 Td (1. PoseDecomposer.decompose\(M_raw\) -> translation t in R^3, unit quaternion q in S^3, scale s in R^3) Tj ET
+BT /F3 7.8 Tf 50.00 179.79 Td (2. PoseFilter.filter\(t, q, s, poseTimestampNs\):) Tj ET
+BT /F3 7.8 Tf 50.00 169.19 Td (   - Translation 1-Euro: minCutoff=1.35Hz, beta=38.0, dCutoff=2.8Hz, highVelBeta=1800 \(thresh=0.04m/s\)) Tj ET
+BT /F3 7.8 Tf 50.00 158.59 Td (   - Rotation Quat 1-Euro \(hemisphere dot >= 0 sign continuity\): minCutoff=1.5Hz, beta=14.0, highVelBeta) Tj ET
+BT /F3 7.8 Tf 50.00 147.99 Td (   - Coherent Raw-Step Gate: highSpeedBoost activates only after >= 4 consecutive same-direction raw ste) Tj ET
+BT /F3 7.8 Tf 50.00 137.39 Td (3. LatencyCompensator.predict\(renderElapsedNs, poseTimestampNs\):) Tj ET
+BT /F3 7.8 Tf 50.00 126.79 Td (   - deltaSec = clamp\(\(renderElapsedNs + extraLeadNs\) - poseTimestampNs, 0, maxHorizonSec=50ms\)) Tj ET
+BT /F3 7.8 Tf 50.00 116.19 Td (   - taperGain = 1.0 - 0.008 * \(deltaSec / horizon\)^2) Tj ET
+BT /F3 7.8 Tf 50.00 105.59 Td (   - t_pred = t_filt + [vx, vy, vz * zGain\(0.25\)] * \(deltaSec * taperGain * velocityBlendFactor\)) Tj ET
+BT /F3 7.8 Tf 50.00 94.99 Td (   - q_pred = exp\(0.5 * omega * effectiveDeltaSec\) * q_filt  \(Stop-after-motion deadzone = 8 mm/s\)) Tj ET
+BT /F3 7.8 Tf 50.00 84.39 Td (4. FaceState stores BOTH M_pred \(poseMatrix\) and M_raw_capture \(landmarkPoseMatrix\) with zero GL allocat) Tj ET
+0.78 0.81 0.86 RG 0.6 w
+42.00 38.00 m 553.28 38.00 l S
+0.35 0.38 0.44 rg
+BT /F1 8.0 Tf 42.00 26.00 Td (Xelvic AR Filter & Beauty Engine SDK - Deep Pipeline Reference & Use-Case Guide) Tj ET
+BT /F2 8.5 Tf 508.28 26.00 Td (Page 2) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents 9 0 R >>
+endobj
+11 0 obj
+<< /Length 9063 >>
+stream
+0.09 0.14 0.24 rg
+42.00 805.89 511.28 18.00 re f
+1 1 1 rg
+BT /F2 8.5 Tf 50.00 811.89 Td (Section 3.: Stage-by-Stage Code-Trace Pipeline Deep Dive) Tj ET
+BT /F1 8.0 Tf 475.28 811.89 Td (Snap Parity v2.5) Tj ET
+0.09 0.28 0.48 rg
+BT /F2 10.0 Tf 42.00 771.89 Td (Stage 4: Phase 3 2D Landmark Latency Compensation & ControlPointSmoother) Tj ET
+0.75 0.82 0.90 RG 0.7 w
+42.00 768.39 m 553.28 768.39 l S
+0.14 0.16 0.20 rg
+BT /F1 9.0 Tf 42.00 752.89 Td (Files: ControlPointSmoother.kt, FaceRegions.kt, FacePoseAdapter.kt. To prevent 2D beauty masks \($mask:lips,) Tj ET
+BT /F1 9.0 Tf 42.00 740.29 Td ($mask:skin, $mask:eyes, $mask:teeth, $mask:sclera\) and post.warp@1 from lagging behind 3D meshes during rapid head) Tj ET
+BT /F1 9.0 Tf 42.00 727.69 Td (motion while eliminating stationary pixel shimmer:) Tj ET
+0.95 0.96 0.98 rg
+0.76 0.80 0.87 RG 0.7 w
+42.00 593.09 511.28 128.00 re B
+0.18 0.25 0.38 rg
+42.00 706.09 511.28 15.00 re f
+1 1 1 rg
+BT /F2 8.2 Tf 50.00 710.09 Td (Phase 3 Unified 2D+3D Landmark Projection \(FacePoseAdapter.mapLandmarkToViewWithPoseDelta\)) Tj ET
+0.10 0.13 0.18 rg
+BT /F3 7.8 Tf 50.00 695.59 Td (1. Selective 1-Euro Smoother: ControlPointSmoother filters FaceRegions.CONTROL_POINT_INDICES \(121 indice) Tj ET
+BT /F3 7.8 Tf 50.00 684.99 Td (   including contour loops, irises 468..477, and warp anchors #4, #6, #129, #358\) ONCE per frame timesta) Tj ET
+BT /F3 7.8 Tf 50.00 674.39 Td (2. Unproject 2D smoothed landmark \(u, v, z\) into 3D camera space at capture depth absZ = |M_lm[14]|:) Tj ET
+BT /F3 7.8 Tf 50.00 663.79 Td (   vx = \(u - 0.5\) * \(2 * absZ * cropAspect / fCrop\),  vy = -\(v - 0.5\) * \(2 * absZ / fCrop\),  vz = -absZ ) Tj ET
+BT /F3 7.8 Tf 50.00 653.19 Td (3. Apply rigid 3D prediction delta T = M_pred * M_lm^\(-1\):) Tj ET
+BT /F3 7.8 Tf 50.00 642.59 Td (   p_local = R_lm^T * \(p_cam - t_lm\)   -->   p_pred = R_pred * p_local + t_pred) Tj ET
+BT /F3 7.8 Tf 50.00 631.99 Td (4. Reproject p_pred into normalized analysis-crop coordinates \(u_pred, v_pred\) using \(fCrop, cropAspect\)) Tj ET
+BT /F3 7.8 Tf 50.00 621.39 Td (   duCrop = \(px / \(-pz\) - vx / \(-vz\)\) * \(fCrop / \(2 * cropAspect\)\)) Tj ET
+BT /F3 7.8 Tf 50.00 610.79 Td (   dvCrop = -\(py / \(-pz\) - vy / \(-vz\)\) * \(fCrop / 2\)) Tj ET
+BT /F3 7.8 Tf 50.00 600.19 Td (5. Map \(u + duCrop, v + dvCrop\) through the 3x3 imageToViewTransform -> < 0.5px error at 35ms latency!) Tj ET
+0.09 0.28 0.48 rg
+BT /F2 10.0 Tf 42.00 574.09 Td (Stage 5: Data-Driven Package Compiler, PassGraph & 6-Pass GLES30 RenderGraph) Tj ET
+0.75 0.82 0.90 RG 0.7 w
+42.00 570.59 m 553.28 570.59 l S
+0.14 0.16 0.20 rg
+BT /F1 9.0 Tf 42.00 555.09 Td (Files: Compiler.kt, PassGraph.kt, RtPool.kt, RenderGraph.kt, CompositionSurface.kt, RegionMaskPass.kt,) Tj ET
+BT /F1 9.0 Tf 42.00 542.49 Td (RecolorPass.kt, FaceMeshRenderer.kt, ModelRenderer.kt, MaterialRegistry.kt, PostRenderer.kt.) Tj ET
+0.14 0.22 0.36 rg
+42.00 519.39 511.28 16.50 re f
+1 1 1 rg
+BT /F2 8.0 Tf 47.00 524.19 Td (Pass Order) Tj ET
+BT /F2 8.0 Tf 115.00 524.19 Td (RenderGraph Stage) Tj ET
+BT /F2 8.0 Tf 233.00 524.19 Td (FBO Target) Tj ET
+BT /F2 8.0 Tf 328.00 524.19 Td (Core Operations & Shaders) Tj ET
+0.96 0.97 0.99 rg
+42.00 502.89 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 502.89 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 507.69 Td (Pass 1) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 115.00 507.69 Td (BACKGROUND_PASS) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 233.00 507.69 Td (sceneFbo \(Full RGBA8\)) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 328.00 507.69 Td (Draws OES camera texture with single-owner uTexMatrix \(..) Tj ET
+1.00 1.00 1.00 rg
+42.00 486.39 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 486.39 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 491.19 Td (Pass 2) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 115.00 491.19 Td (CAMERA_PIXEL_PASSES) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 233.00 491.19 Td ($mask:<id> \(Half-Res..) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 328.00 491.19 Td (RegionMaskPass centroid-fan + feathered skirt + MaskExp..) Tj ET
+0.96 0.97 0.99 rg
+42.00 469.89 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 469.89 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 474.69 Td (Pass 3) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 115.00 474.69 Td (OCCLUDER_PASS) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 233.00 474.69 Td (sceneFbo Depth24) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 328.00 474.69 Td (Color mask \(F,F,F,F\), Depth write ON; renders 468-vtx f..) Tj ET
+1.00 1.00 1.00 rg
+42.00 453.39 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 453.39 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 458.19 Td (Pass 4) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 115.00 458.19 Td (OPAQUE_3D_PASS) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 233.00 458.19 Td (sceneFbo Color+Depth) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 328.00 458.19 Td (ModelRenderer glTF 2.0 meshes: material.pbr@1 \(Cook-Tor..) Tj ET
+0.96 0.97 0.99 rg
+42.00 436.89 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 436.89 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 441.69 Td (Pass 5) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 115.00 441.69 Td (TRANSPARENT_3D_PASS) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 233.00 441.69 Td (sceneFbo \(Sorted\)) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 328.00 441.69 Td (Back-to-front faceMesh paint, PBR glass lenses \(Fresnel..) Tj ET
+1.00 1.00 1.00 rg
+42.00 420.39 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 420.39 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 425.19 Td (Pass 6) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 115.00 425.19 Td (POST_PASSES -> DISPLAY) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 233.00 425.19 Td (Ping-Pong -> FBO 0) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 328.00 425.19 Td (PostRenderer: warp, skinSoften/bilateral, colorGrade, c..) Tj ET
+0.09 0.28 0.48 rg
+BT /F2 10.0 Tf 42.00 401.39 Td (Stage 6: Dual-Mode Composition \(Path A vs Path B\) & Capture Output Pipelines) Tj ET
+0.75 0.82 0.90 RG 0.7 w
+42.00 397.89 m 553.28 397.89 l S
+0.00 0.55 0.72 rg
+BT /F2 8.8 Tf 50.00 382.59 Td (*) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 382.59 Td (Path A \(TRANSPARENT_OVERLAY\) vs Path B \(SINGLE_SCENE_GL\): In Path A, PreviewView renders the camera feed on the) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 370.39 Td (view hierarchy while TransparentOverlayCompositionSurface renders 3D/2D overlays with premultiplied alpha.) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 358.19 Td (Whenever a filter requires camera pixels \(requiresCameraPixels == true, e.g., beauty skin smoothing, recolor,) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 345.99 Td (warp, LUT, grain, sharpen\) or video recording starts, XelvicGlSurfaceView automatically activates Path B) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 333.79 Td (\(SingleSceneCompositionSurface\), compositing camera OES + masks + 3D + post into sceneFbo.) Tj ET
+0.00 0.55 0.72 rg
+BT /F2 8.8 Tf 50.00 320.09 Td (*) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 320.09 Td (StillPipeline & OffscreenRenderer \(High-Resolution Photo Capture\): Captures full-resolution photos via an isolated) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 307.89 Td (EGL14 PBuffer context \(OffscreenRenderer\) or deterministic CPU fallback using the exact same CompiledEffect,) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 295.69 Td (RegionMaskPass \(with expanded cranial forehead hairline feather\), RecolorPass, and PostRenderer.) Tj ET
+0.00 0.55 0.72 rg
+BT /F2 8.8 Tf 50.00 281.99 Td (*) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 281.99 Td (VideoRecorderPipeline \(Real-Time GPU MP4 + AAC Microphone Muxing\): Creates an EGLSurface backed by) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 269.79 Td (MediaCodec.createInputSurface\(\) \(video/avc H.264\) sharing the live GL context, blits) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 257.59 Td (SingleSceneCompositionSurface.sceneColorTex at 30/60fps using monotonic sensor timestamps via) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 245.39 Td (EGLExt.eglPresentationTimeANDROID, and simultaneously encodes AudioRecord PCM audio into AAC \(audio/mp4a-latm\) via) Tj ET
+0.14 0.16 0.20 rg
+BT /F1 8.8 Tf 60.00 233.19 Td (a single MediaMuxer.) Tj ET
+0.11 0.19 0.34 rg
+42.00 202.29 511.28 22.00 re f
+0.00 0.75 0.85 rg
+42.00 202.29 4.50 22.00 re f
+1 1 1 rg
+BT /F2 11.2 Tf 54.00 208.79 Td (4.  Concrete End-to-End Use-Case Walkthroughs) Tj ET
+0.09 0.28 0.48 rg
+BT /F2 10.0 Tf 42.00 181.29 Td (Use Case 1: 3D PBR Aviator Sunglasses + Head Occluder + Smile Behavior) Tj ET
+0.75 0.82 0.90 RG 0.7 w
+42.00 177.79 m 553.28 177.79 l S
+0.14 0.16 0.20 rg
+BT /F1 9.0 Tf 42.00 162.29 Td (Demonstrates how a 3D glTF accessory filter with metallic frames, semi-transparent specular glass lenses,) Tj ET
+BT /F1 9.0 Tf 42.00 149.69 Td (head/nose depth occlusion, and an expression-driven behavior runs from manifest compilation to 60fps GL rendering.) Tj ET
+0.78 0.81 0.86 RG 0.6 w
+42.00 38.00 m 553.28 38.00 l S
+0.35 0.38 0.44 rg
+BT /F1 8.0 Tf 42.00 26.00 Td (Xelvic AR Filter & Beauty Engine SDK - Deep Pipeline Reference & Use-Case Guide) Tj ET
+BT /F2 8.5 Tf 508.28 26.00 Td (Page 3) Tj ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents 11 0 R >>
+endobj
+13 0 obj
+<< /Length 8387 >>
+stream
+0.09 0.14 0.24 rg
+42.00 805.89 511.28 18.00 re f
+1 1 1 rg
+BT /F2 8.5 Tf 50.00 811.89 Td (Section 4.: Concrete End-to-End Use-Case Walkthroughs) Tj ET
+BT /F1 8.0 Tf 475.28 811.89 Td (Snap Parity v2.5) Tj ET
+0.95 0.96 0.98 rg
+0.76 0.80 0.87 RG 0.7 w
+42.00 602.89 511.28 181.00 re B
+0.18 0.25 0.38 rg
+42.00 768.89 511.28 15.00 re f
+1 1 1 rg
+BT /F2 8.2 Tf 50.00 772.89 Td (Use Case 1 Manifest & Runtime Execution Trace \(3D PBR + Occluder\)) Tj ET
+0.10 0.13 0.18 rg
+BT /F3 7.8 Tf 50.00 758.39 Td (Manifest Capabilities: ["pose", "landmarks", "blendshapes"]  \(requiresCameraPixels = false -> Path A or ) Tj ET
+BT /F3 7.8 Tf 50.00 747.79 Td (1. Compiler.kt & GlbLoader.kt:) Tj ET
+BT /F3 7.8 Tf 50.00 737.19 Td (   - Parses glTF 2.0 binary \(.glb\), extracting pbrMetallicRoughness \(baseColorFactor, metallicFactor=0.9) Tj ET
+BT /F3 7.8 Tf 50.00 726.59 Td (     roughnessFactor=0.18, baseColorTexture, metallicRoughnessTexture, normalTexture, emissiveTexture\).) Tj ET
+BT /F3 7.8 Tf 50.00 715.99 Td (   - Compiles 2 scene nodes: 'face_occ' \(type='occluder', shape='faceMesh', pushBackFW=0.02\) at renderOr) Tj ET
+BT /F3 7.8 Tf 50.00 705.39 Td (     and 'aviator_glasses' \(type='model3d', anchor='nose_bridge', shader='material.pbr@1'\) at renderOrde) Tj ET
+BT /F3 7.8 Tf 50.00 694.79 Td (2. Frame Execution on GL Thread \(60fps\):) Tj ET
+BT /F3 7.8 Tf 50.00 684.19 Td (   - SignalPipeline.consumeLatestPredictedState\(renderElapsedNs\) predicts 3D head pose 35ms ahead.) Tj ET
+BT /F3 7.8 Tf 50.00 673.59 Td (   - Pass 3 \(OCCLUDER_PASS\): FaceMeshRenderer unprojects 468 landmarks at |landmarkPoseMatrix[14]|, push) Tj ET
+BT /F3 7.8 Tf 50.00 662.99 Td (     vertices back by 0.02*FW along view rays, and draws into Depth24 buffer with glColorMask\(false,fals) Tj ET
+BT /F3 7.8 Tf 50.00 652.39 Td (     using pose-corrected MVP = P_view * \(M_pred * M_landmark^-1\).) Tj ET
+BT /F3 7.8 Tf 50.00 641.79 Td (   - Pass 4/5 \(3D PBR PASS\): AnchorResolver places glasses at 'nose_bridge' in FW-scaled metric units.) Tj ET
+BT /F3 7.8 Tf 50.00 631.19 Td (     MaterialRegistry 'material.pbr@1' evaluates Cook-Torrance GGX D*G*F specular, Schlick Fresnel glass) Tj ET
+BT /F3 7.8 Tf 50.00 620.59 Td (     alpha boost \(alpha = max\(baseAlpha, fresnelLuminance\)\), procedural 2-light + studio horizon IBL, an) Tj ET
+BT /F3 7.8 Tf 50.00 609.99 Td (     tonemapping. Temples behind the head/ears are cleanly rejected by the Depth24 faceMesh occluder!) Tj ET
+0.09 0.28 0.48 rg
+BT /F2 10.0 Tf 42.00 583.89 Td (Use Case 2: Snap Retouch & Beauty Makeup Filter \(Full Forehead Skin, Lips, Teeth, Sclera, Warp, 3D LUT\)) Tj ET
+0.75 0.82 0.90 RG 0.7 w
+42.00 580.39 m 553.28 580.39 l S
+0.14 0.16 0.20 rg
+BT /F1 9.0 Tf 42.00 564.89 Td (Demonstrates a multi-pass camera-pixel beauty filter combining cranial-extrapolated skin smoothing, lip tinting,) Tj ET
+BT /F1 9.0 Tf 42.00 552.29 Td (teeth/sclera brightening, facial liquify warp, and 3D LUT color grading during a fast head turn.) Tj ET
+0.95 0.96 0.98 rg
+0.76 0.80 0.87 RG 0.7 w
+42.00 343.49 511.28 202.20 re B
+0.18 0.25 0.38 rg
+42.00 530.69 511.28 15.00 re f
+1 1 1 rg
+BT /F2 8.2 Tf 50.00 534.69 Td (Use Case 2 Execution Trace \(Beauty Retouch + Phase 3 Zero-Lag 2D Masks + PassGraph\)) Tj ET
+0.10 0.13 0.18 rg
+BT /F3 7.8 Tf 50.00 520.19 Td (Manifest Capabilities: ["pose", "landmarks", "regionMasks", "recolor", "post"] \(requiresCameraPixels = t) Tj ET
+BT /F3 7.8 Tf 50.00 509.59 Td (1. Pass 1 \(BACKGROUND_PASS\): SingleSceneCompositionSurface reads OES camera frame into sceneFbo.) Tj ET
+BT /F3 7.8 Tf 50.00 498.99 Td (2. Pass 2A \(RegionMaskPass -> Half-Res GL_R8 FBOs in RtPool\):) Tj ET
+BT /F3 7.8 Tf 50.00 488.39 Td (   - ControlPointSmoother steps 121 control-point 1-Euro filters ONCE for the frame's poseTimestampNs.) Tj ET
+BT /F3 7.8 Tf 50.00 477.79 Td (   - FacePoseAdapter.mapLandmarkToViewWithPoseDelta projects each smoothed landmark with 3D pose delta) Tj ET
+BT /F3 7.8 Tf 50.00 467.19 Td (     \(M_pred * M_lm^-1\) through imageToViewTransform \(< 0.5px lag even during 525 px/s fast head turn\).) Tj ET
+BT /F3 7.8 Tf 50.00 456.59 Td (   - '$mask:skin': Triangulates FACE_OVAL with cranial forehead extrapolation \(+22% of chin-to-forehead ) Tj ET
+BT /F3 7.8 Tf 50.00 445.99 Td (     above landmark #10 and 1.77x expanded hairline feather\) minus eyes, brows, and lips.) Tj ET
+BT /F3 7.8 Tf 50.00 435.39 Td (   - '$mask:lips': LIPS_OUTER minus MOUTH_INNER \(auto-attenuated when mouth opening ratio > threshold\).) Tj ET
+BT /F3 7.8 Tf 50.00 424.79 Td (   - '$mask:teeth' & '$mask:sclera': MOUTH_INNER luminance-keyed for teeth; EYES minus unclamped IRIS fo) Tj ET
+BT /F3 7.8 Tf 50.00 414.19 Td (3. Pass 2B \(RecolorPass\): Applies softLight/multiply lip tinting + HSV yellow-desaturating teeth/sclera ) Tj ET
+BT /F3 7.8 Tf 50.00 403.59 Td (4. Pass 6 \(PostRenderer Ping-Pong Chain\):) Tj ET
+BT /F3 7.8 Tf 50.00 392.99 Td (   - 'post.skinSoften@1': Dual-radius bilateral surface blur masked by '$mask:skin' with high-frequency ) Tj ET
+BT /F3 7.8 Tf 50.00 382.39 Td (     detail restoration \(detailPreserve\) so skin looks airbrushed yet natural.) Tj ET
+BT /F3 7.8 Tf 50.00 371.79 Td (   - 'post.warp@1': populateWarpAnchors hoists smoothed #4, #6, #10, #152, #234, #454, #172, #397, #129,) Tj ET
+BT /F3 7.8 Tf 50.00 361.19 Td (     anchors to apply jawSlim, eyeEnlarge, noseSlim, and chinVLine strictly inside the face_oval envelop) Tj ET
+BT /F3 7.8 Tf 50.00 350.59 Td (   - 'post.lut@1' & 'post.grain@1': Applies trilinear 3D Hald/Strip LUT grading + 24Hz luminance-weighte) Tj ET
+0.09 0.28 0.48 rg
+BT /F2 10.0 Tf 42.00 324.49 Td (Use Case 3: Real-Time GPU Video Recording \(MP4 + AAC Audio\) & Adaptive Governor) Tj ET
+0.75 0.82 0.90 RG 0.7 w
+42.00 320.99 m 553.28 320.99 l S
+0.14 0.16 0.20 rg
+BT /F1 9.0 Tf 42.00 305.49 Td (Demonstrates how the user records a 1080p60 MP4 video with live beauty + 3D filters while PerformanceGovernor) Tj ET
+BT /F1 9.0 Tf 42.00 292.89 Td (monitors frame budgets and thermal state.) Tj ET
+0.95 0.96 0.98 rg
+0.76 0.80 0.87 RG 0.7 w
+42.00 126.49 511.28 159.80 re B
+0.18 0.25 0.38 rg
+42.00 271.29 511.28 15.00 re f
+1 1 1 rg
+BT /F2 8.2 Tf 50.00 275.29 Td (Use Case 3 Execution Trace \(Zero-Copy GPU Video Recording & PerformanceGovernor\)) Tj ET
+0.10 0.13 0.18 rg
+BT /F3 7.8 Tf 50.00 260.79 Td (1. VideoRecorderPipeline.startRecording\(config: 1080x1920, 30/60fps, 12Mbps H.264, 128kbps AAC\):) Tj ET
+BT /F3 7.8 Tf 50.00 250.19 Td (   - Configures MediaCodec 'video/avc' \(COLOR_FormatSurface\) + creates encoderInputSurface.) Tj ET
+BT /F3 7.8 Tf 50.00 239.59 Td (   - On GL thread, creates shared-context EGLSurface bound to encoderInputSurface.) Tj ET
+BT /F3 7.8 Tf 50.00 228.99 Td (   - Starts AudioRecord background thread feeding MediaCodec 'audio/mp4a-latm' with monotonic timestamps) Tj ET
+BT /F3 7.8 Tf 50.00 218.39 Td (2. Per-Frame GL Hook \(XelvicGlSurfaceView.onDrawFrame -> onAfterRenderGraph\):) Tj ET
+BT /F3 7.8 Tf 50.00 207.79 Td (   - After SingleSceneCompositionSurface finishes rendering all 6 passes into sceneFbo \(sceneColorTex\),) Tj ET
+BT /F3 7.8 Tf 50.00 197.19 Td (     VideoRecorderPipeline switches eglMakeCurrent to the encoder EGLSurface, draws sceneColorTex with) Tj ET
+BT /F3 7.8 Tf 50.00 186.59 Td (     an upright fullscreen quad, sets EGLExt.eglPresentationTimeANDROID\(sensorTimestampNs\), and swaps bu) Tj ET
+BT /F3 7.8 Tf 50.00 175.99 Td (   - Drains encoded H.264 & AAC packets into MediaMuxer without a single CPU glReadPixels stall!) Tj ET
+BT /F3 7.8 Tf 50.00 165.39 Td (3. PerformanceGovernor Closed-Loop Guard:) Tj ET
+BT /F3 7.8 Tf 50.00 154.79 Td (   - Evaluates rolling 5s window from LatencyProbe \(drawCpuMs, inferenceMs, ageAtRenderMs, thermal statu) Tj ET
+BT /F3 7.8 Tf 50.00 144.19 Td (   - Scales analysis resolution \(360p -> 256p -> 192p\), tracker cadence \(30 -> 24 -> 15 Hz\), or disables) Tj ET
+BT /F3 7.8 Tf 50.00 133.59 Td (     optional post passes if frame time exceeds budget, respecting warmup and cooldown windows.) Tj ET
+0.11 0.19 0.34 rg
+42.00 93.49 511.28 22.00 re f
+0.00 0.75 0.85 rg
+42.00 93.49 4.50 22.00 re f
+1 1 1 rg
+BT /F2 11.2 Tf 54.00 99.99 Td (5.  Complete SDK Engine Module & File Reference) Tj ET
+0.78 0.81 0.86 RG 0.6 w
+42.00 38.00 m 553.28 38.00 l S
+0.35 0.38 0.44 rg
+BT /F1 8.0 Tf 42.00 26.00 Td (Xelvic AR Filter & Beauty Engine SDK - Deep Pipeline Reference & Use-Case Guide) Tj ET
+BT /F2 8.5 Tf 508.28 26.00 Td (Page 4) Tj ET
+endstream
+endobj
+14 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents 13 0 R >>
+endobj
+15 0 obj
+<< /Length 5621 >>
+stream
+0.09 0.14 0.24 rg
+42.00 805.89 511.28 18.00 re f
+1 1 1 rg
+BT /F2 8.5 Tf 50.00 811.89 Td (Section 5.: Complete SDK Engine Module & File Reference) Tj ET
+BT /F1 8.0 Tf 475.28 811.89 Td (Snap Parity v2.5) Tj ET
+0.14 0.22 0.36 rg
+42.00 767.39 511.28 16.50 re f
+1 1 1 rg
+BT /F2 8.0 Tf 47.00 772.19 Td (Layer / Package) Tj ET
+BT /F2 8.0 Tf 155.00 772.19 Td (Key Source Files) Tj ET
+BT /F2 8.0 Tf 310.00 772.19 Td (Core Responsibility in the Pipeline) Tj ET
+0.96 0.97 0.99 rg
+42.00 750.89 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 750.89 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 755.69 Td (capture/) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 155.00 755.69 Td (CameraSession.kt, AnalysisFrame.kt) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 310.00 755.69 Td (Cadence governor, ClockOffsetCalibrator \(5th-pct\), intrinsic..) Tj ET
+1.00 1.00 1.00 rg
+42.00 734.39 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 734.39 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 739.19 Td (capture/) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 155.00 739.19 Td (CameraInputSurface.kt) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 310.00 739.19 Td (Single-owner OES SurfaceTexture transform \(mirror/crop/rot\) ..) Tj ET
+0.96 0.97 0.99 rg
+42.00 717.89 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 717.89 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 722.69 Td (capture/) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 155.00 722.69 Td (VideoRecorderPipeline.kt) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 310.00 722.69 Td (Zero-copy GPU EGLSurface H.264 encoder + AudioRecord AAC enc..) Tj ET
+1.00 1.00 1.00 rg
+42.00 701.39 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 701.39 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 706.19 Td (perception/) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 155.00 706.19 Td (MediaPipeFaceGeometryProvider.kt) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 310.00 706.19 Td (DedicatedDispatchThread, FastYuvToRgbConverter, 478 landmark..) Tj ET
+0.96 0.97 0.99 rg
+42.00 684.89 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 684.89 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 689.69 Td (signal/) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 155.00 689.69 Td (SignalPipeline.kt, PoseFilter.kt) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 310.00 689.69 Td (PoseDecomposer, 1-Euro translation/quat/scale/BS filtering w..) Tj ET
+1.00 1.00 1.00 rg
+42.00 668.39 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 668.39 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 673.19 Td (signal/) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 155.00 673.19 Td (LatencyCompensator.kt) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 310.00 673.19 Td (Bounded 50ms horizon pose extrapolation, velocity deadzone, ..) Tj ET
+0.96 0.97 0.99 rg
+42.00 651.89 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 651.89 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 656.69 Td (signal/) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 155.00 656.69 Td (FacePoseAdapter.kt, ControlPointSmoo..) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 310.00 656.69 Td (Canonical FW scale, single-stage 3D mirror, 121-pt 1-Euro sm..) Tj ET
+1.00 1.00 1.00 rg
+42.00 635.39 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 635.39 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 640.19 Td (pkg/) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 155.00 640.19 Td (Compiler.kt, PassGraph.kt, FaceRegions) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 310.00 640.19 Td (Manifest validation, DAG pass compiler, pinned 478 topology ..) Tj ET
+0.96 0.97 0.99 rg
+42.00 618.89 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 618.89 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 623.69 Td (render/) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 155.00 623.69 Td (RenderGraph.kt, CompositionSurface.kt) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 310.00 623.69 Td (Dual-path \(Path A Overlay / Path B SingleScene\) 6-pass GLES3..) Tj ET
+1.00 1.00 1.00 rg
+42.00 602.39 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 602.39 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 607.19 Td (render/) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 155.00 607.19 Td (RegionMaskPass.kt, RecolorPass.kt) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 310.00 607.19 Td (Half-res R8 feathered masks \($mask:skin/lips/eyes/teeth/scle..) Tj ET
+0.96 0.97 0.99 rg
+42.00 585.89 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 585.89 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 590.69 Td (render/) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 155.00 590.69 Td (ModelRenderer.kt, MaterialRegistry.kt) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 310.00 590.69 Td (glTF 2.0 loader, Cook-Torrance GGX PBR shader, procedural st..) Tj ET
+1.00 1.00 1.00 rg
+42.00 569.39 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 569.39 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 574.19 Td (render/) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 155.00 574.19 Td (PostRenderer.kt, StillPipeline.kt) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 310.00 574.19 Td (Warp, bilateral skinSoften, 3D LUT, film grain, sharpen, col..) Tj ET
+0.96 0.97 0.99 rg
+42.00 552.89 511.28 16.50 re f
+0.82 0.85 0.90 RG 0.4 w
+42.00 552.89 511.28 16.50 re S
+0.12 0.15 0.20 rg
+BT /F2 8.0 Tf 47.00 557.69 Td (governor/ & debug/) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 155.00 557.69 Td (PerformanceGovernor.kt, LatencyProbe) Tj ET
+0.12 0.15 0.20 rg
+BT /F1 8.0 Tf 310.00 557.69 Td (Closed-loop resolution/FPS scaling, mask-offset HUD telemetr..) Tj ET
+0.78 0.81 0.86 RG 0.6 w
+42.00 38.00 m 553.28 38.00 l S
+0.35 0.38 0.44 rg
+BT /F1 8.0 Tf 42.00 26.00 Td (Xelvic AR Filter & Beauty Engine SDK - Deep Pipeline Reference & Use-Case Guide) Tj ET
+BT /F2 8.5 Tf 508.28 26.00 Td (Page 5) Tj ET
+endstream
+endobj
+16 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents 15 0 R >>
+endobj
+xref
+0 17
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000149 00000 n 
+0000000246 00000 n 
+0000000348 00000 n 
+0000000443 00000 n 
+0000000543 00000 n 
+0000008231 00000 n 
+0000008393 00000 n 
+0000018241 00000 n 
+0000018404 00000 n 
+0000027520 00000 n 
+0000027684 00000 n 
+0000036124 00000 n 
+0000036288 00000 n 
+0000041962 00000 n 
+trailer
+<< /Size 17 /Root 1 0 R >>
+startxref
+42126
+%%EOF

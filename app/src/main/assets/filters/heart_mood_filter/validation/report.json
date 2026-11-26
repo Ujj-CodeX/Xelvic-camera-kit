@@ -1,0 +1,153 @@
+{
+  "package": "Heart Mood Filter",
+  "validationStatus": "STATIC_VALIDATION_PASSED",
+  "runtimeImportStatus": "NOT_SUPPORTED_BY_CURRENT_XELVIC_FILTER_PACKAGE_MANAGER",
+  "physicalDeviceStatus": "NOT_TESTED",
+  "heartCountPerTier": 9,
+  "lods": [
+    {
+      "tier": "A",
+      "glbVersion": "2.0",
+      "attributes": [
+        "NORMAL",
+        "POSITION",
+        "TEXCOORD_0"
+      ],
+      "indicesComponentType": "UNSIGNED_SHORT",
+      "indexCount": 13716,
+      "triangles": 4572,
+      "drawCalls": 1,
+      "embeddedTexture": true,
+      "bytes": 577092
+    },
+    {
+      "tier": "B",
+      "glbVersion": "2.0",
+      "attributes": [
+        "NORMAL",
+        "POSITION",
+        "TEXCOORD_0"
+      ],
+      "indicesComponentType": "UNSIGNED_SHORT",
+      "indexCount": 8532,
+      "triangles": 2844,
+      "drawCalls": 1,
+      "embeddedTexture": true,
+      "bytes": 442304
+    },
+    {
+      "tier": "C",
+      "glbVersion": "2.0",
+      "attributes": [
+        "NORMAL",
+        "POSITION",
+        "TEXCOORD_0"
+      ],
+      "indicesComponentType": "UNSIGNED_SHORT",
+      "indexCount": 5076,
+      "triangles": 1692,
+      "drawCalls": 1,
+      "embeddedTexture": true,
+      "bytes": 352448
+    }
+  ],
+  "calibrationDefaultsSynchronized": {
+    "offset_x": true,
+    "offset_y": true,
+    "offset_z": true,
+    "scale": true,
+    "face_pushback": true,
+    "ellipsoid_rx": true,
+    "ellipsoid_ry": true,
+    "ellipsoid_rz": true,
+    "float_angle": true,
+    "float_translation": true,
+    "float_period": true,
+    "face_lost_hold": true,
+    "face_lost_fade": true,
+    "rotation_x": true,
+    "rotation_y": true,
+    "rotation_z": true,
+    "fit_ratio": true,
+    "head_center_x": true,
+    "head_center_y": true,
+    "head_center_z": true,
+    "metallic": true,
+    "roughness": true,
+    "heart_01_x": true,
+    "heart_01_y": true,
+    "heart_01_z": true,
+    "heart_01_width": true,
+    "heart_01_rotation": true,
+    "heart_02_x": true,
+    "heart_02_y": true,
+    "heart_02_z": true,
+    "heart_02_width": true,
+    "heart_02_rotation": true,
+    "heart_03_x": true,
+    "heart_03_y": true,
+    "heart_03_z": true,
+    "heart_03_width": true,
+    "heart_03_rotation": true,
+    "heart_04_x": true,
+    "heart_04_y": true,
+    "heart_04_z": true,
+    "heart_04_width": true,
+    "heart_04_rotation": true,
+    "heart_05_x": true,
+    "heart_05_y": true,
+    "heart_05_z": true,
+    "heart_05_width": true,
+    "heart_05_rotation": true,
+    "heart_06_x": true,
+    "heart_06_y": true,
+    "heart_06_z": true,
+    "heart_06_width": true,
+    "heart_06_rotation": true,
+    "heart_07_x": true,
+    "heart_07_y": true,
+    "heart_07_z": true,
+    "heart_07_width": true,
+    "heart_07_rotation": true,
+    "heart_08_x": true,
+    "heart_08_y": true,
+    "heart_08_z": true,
+    "heart_08_width": true,
+    "heart_08_rotation": true,
+    "heart_09_x": true,
+    "heart_09_y": true,
+    "heart_09_z": true,
+    "heart_09_width": true,
+    "heart_09_rotation": true
+  },
+  "coordinateConvention": "+X subject-right; +Y up; +Z toward camera; no package mirroring",
+  "occlusion": "Face mesh + head proxy ellipsoid enabled; ear/temple proxy disabled by scope",
+  "renderStage": "OPAQUE_MODELS (Stage 5), after CLEAR_DEPTH_AND_OCCLUDERS (Stage 4)",
+  "files": [
+    {
+      "path": "thumbnail.png",
+      "bytes": 51152,
+      "sha256": "d3734e8d38504fc9cc64753270fc51997b6353ee2e902aa21997fe26ec2d051a"
+    },
+    {
+      "path": "assets/heart_mood_atlas.png",
+      "bytes": 177637,
+      "sha256": "686867fa226aa5e9878e1ed6f8df393fbf661fb36f43ff40f069736af5abc1eb"
+    },
+    {
+      "path": "models/heart_mood_crown_lod_a.glb",
+      "bytes": 577092,
+      "sha256": "5f3c28e18b41346d47c0cc498df5bc4c4d1b1bd989df169417c3de46e7246209"
+    },
+    {
+      "path": "models/heart_mood_crown_lod_b.glb",
+      "bytes": 442304,
+      "sha256": "fee38d1cac5a9bafff816859eb69b03b1bff647f214341f6abe9bcf75a7b387b"
+    },
+    {
+      "path": "models/heart_mood_crown_lod_c.glb",
+      "bytes": 352448,
+      "sha256": "a260b08e318678dab8b527cb14429fb05b91385a0787a7b9615a8f491d0e94a9"
+    }
+  ]
+}

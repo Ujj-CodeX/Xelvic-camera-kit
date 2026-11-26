@@ -1,0 +1,589 @@
+{
+  "schemaVersion": 1,
+  "id": "sunflower_forehead",
+  "name": "Sunflower Forehead",
+  "description": "A single realistic golden sunflower accent placed on the subject-left upper forehead/temple, just above the eyebrow and overlapping the hairline slightly. It is a small face-attached ornament, not a crown or flower cluster.",
+  "engineContract": "xfilter-face-3d/1",
+  "preview": {
+    "path": "preview.jpg",
+    "role": "catalogue_proxy_head"
+  },
+  "assets": [
+    {
+      "id": "sunflower_forehead_model",
+      "path": "assets/sunflower_forehead.glb",
+      "mediaType": "model/gltf-binary",
+      "sha256": "6ce853c60719692f1302f301a6ac9ac73b079debc1e71c2144c9d30977e1cb8d",
+      "bytes": 507556
+    }
+  ],
+  "units": {
+    "distance": "face_width",
+    "faceWidth": 1.0
+  },
+  "faceAxes": {
+    "source": "canonical_face_model",
+    "x": "subject_right",
+    "y": "up",
+    "z": "toward_camera",
+    "mirrorPolicy": "mirror_final_projection_once",
+    "primarySide": "subject_left",
+    "sideMapping": "negative_x (VERIFY against the canonical face model; the proxy preview shows subject-left on viewer-right)"
+  },
+  "anchors": {
+    "head_center": {
+      "offsetFW": [
+        0.0,
+        0.2,
+        -0.12
+      ],
+      "definition": "cheek_mid + R * (FW * [0, 0.20, -0.12]); cheek_mid = M * (c234 + c454) / 2"
+    },
+    "forehead_left_hairline": {
+      "landmarks": [
+        {
+          "id": 297,
+          "weight": 0.5
+        },
+        {
+          "id": 338,
+          "weight": 0.25
+        },
+        {
+          "id": 332,
+          "weight": 0.25
+        }
+      ],
+      "offsetFW": [
+        -0.01,
+        0.05,
+        0.03
+      ],
+      "definition": "0.50*L297 + 0.25*L338 + 0.25*L332 + FW * [-0.01, 0.05, 0.03] (subject-left upper forehead hairline)"
+    },
+    "faceWidthDefinition": "FW = ||M*c234 - M*c454||; cheek_mid = M * (c234 + c454) / 2"
+  },
+  "calibration": {
+    "tunableFields": {
+      "layer.offsetFW": [
+        0.0,
+        0.06,
+        0.02
+      ],
+      "layer.scale": 0.9,
+      "forehead_left_hairline.offsetFW": [
+        -0.01,
+        0.05,
+        0.03
+      ],
+      "head_center.offsetFW": [
+        0.0,
+        0.2,
+        -0.12
+      ],
+      "headProxy.radiiFW": [
+        0.56,
+        0.66,
+        0.68
+      ],
+      "faceMesh.pushBackFW": 0.015,
+      "spring.stiffness": 90.0,
+      "spring.gain": 0.35,
+      "spring.maxAngleDeg": 8.0
+    },
+    "projection": {
+      "camera": "same perspective camera used to compute M",
+      "fieldOfView": "base-SDK camera FOV (VERIFY once on device)"
+    },
+    "placementNotes": "The flower origin is its central seed disk. Attached to custom landmark anchor forehead_left_hairline (#297, #338, #332) with anchor offsetFW [-0.01, 0.05, 0.03] and layer.offsetFW [0.0, 0.06, 0.02] at scale 0.9."
+  },
+  "model": {
+    "asset": "sunflower_forehead_model",
+    "gltfVersion": "2.0",
+    "scene": "SunflowerForeheadScene",
+    "rootNode": "sunflower_root",
+    "pivotNode": "sunflower_pivot",
+    "attributes": [
+      "POSITION",
+      "NORMAL",
+      "TEXCOORD_0"
+    ],
+    "indices": "uint16",
+    "meshReuse": false,
+    "meshNames": [
+      "sunflower_petals_outer_lod_a",
+      "sunflower_petals_inner_lod_a",
+      "sunflower_disk_lod_a",
+      "sunflower_foliage_lod_a",
+      "sunflower_petals_outer_lod_b",
+      "sunflower_petals_inner_lod_b",
+      "sunflower_disk_lod_b",
+      "sunflower_foliage_lod_b",
+      "sunflower_petals_outer_lod_c",
+      "sunflower_disk_lod_c",
+      "sunflower_foliage_lod_c"
+    ],
+    "flowerNodePattern": "sunflower",
+    "primaryFlowerNode": "sunflower_pivot",
+    "embeddedTextures": [
+      "petals_gold",
+      "seeds_brown",
+      "foliage_green"
+    ],
+    "textureColorSpace": "sRGB",
+    "mipmaps": true,
+    "sampler": {
+      "magFilter": "LINEAR",
+      "minFilter": "LINEAR_MIPMAP_LINEAR",
+      "wrapS": "REPEAT",
+      "wrapT": "REPEAT"
+    },
+    "lodPolicy": "Exactly one LOD group is visible per selected tier; hideNodes excludes the other groups."
+  },
+  "materials": {
+    "allowedProperties": [
+      "baseColorTexture",
+      "metallicFactor",
+      "roughnessFactor"
+    ],
+    "metallicFactor": 0.0,
+    "roughnessFactor": 1.0,
+    "alphaMode": "OPAQUE",
+    "doubleSided": true,
+    "backFaceNormal": "flip"
+  },
+  "lighting": {
+    "shading": "Lambert",
+    "ambient": [
+      0.3,
+      0.27,
+      0.2
+    ],
+    "lights": [
+      {
+        "dirToLight": [
+          -0.35,
+          0.65,
+          0.68
+        ],
+        "color": [
+          1.0,
+          0.91,
+          0.72
+        ],
+        "intensity": 0.82
+      },
+      {
+        "dirToLight": [
+          0.58,
+          0.18,
+          0.8
+        ],
+        "color": [
+          1.0,
+          0.76,
+          0.42
+        ],
+        "intensity": 0.28
+      }
+    ],
+    "space": "camera_space",
+    "formula": "C = tex_linear * clamp(ambient + sum_k(intensity_k * color_k * max(dot(N, L_k), 0)), 0, 1), L_k = normalize(dirToLight)",
+    "nodeScaleFloor": 0.001
+  },
+  "layer": {
+    "id": "sunflower_forehead",
+    "asset": "sunflower_forehead_model",
+    "rootNode": "sunflower_root",
+    "anchor": "forehead_left_hairline",
+    "offsetFW": [
+      0.0,
+      0.06,
+      0.02
+    ],
+    "rotationOffsetDeg": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": 0.9,
+    "anatomicalPlacement": "subject_left_upper_forehead_temple_above_eyebrow_near_hairline",
+    "occlusion": {
+      "faceMesh": true,
+      "headProxy": true,
+      "pushBackFW": 0.015
+    }
+  },
+  "occlusion": {
+    "passOrder": [
+      "camera_frame_no_depth",
+      "clear_depth",
+      "occluders",
+      "sunflower_meshes"
+    ],
+    "faceMesh": {
+      "enabledByLayer": true,
+      "pushBackFW": 0.015,
+      "direction": "away_from_camera_along_each_vertex_view_ray"
+    },
+    "headProxy": {
+      "enabledByLayer": true,
+      "shape": "ellipsoid",
+      "center": "head_center",
+      "rotation": "R",
+      "radiiFW": [
+        0.56,
+        0.66,
+        0.68
+      ],
+      "latSegments": 16,
+      "lonSegments": 24,
+      "pushBackFW": 0.0,
+      "clearanceRatioMin": 1.1,
+      "measuredRestClearanceRatio": 1.37337186
+    },
+    "sunflower": {
+      "depthTest": "LESS",
+      "depthWrite": true,
+      "culling": "OFF"
+    },
+    "hairSegmentation": "none",
+    "hairRelation": "The bloom sits in front of the hairline by design; no hair segmentation or hair occlusion is used."
+  },
+  "behaviors": {
+    "timebase": {
+      "clock": "render_seconds",
+      "dtClamp": [
+        0.001,
+        0.05
+      ],
+      "faceAcquired": "first frame with a tracked face after none, including the first frame"
+    },
+    "composition": {
+      "scale": "restScale * product(activeClipScales) * product(driverFactors) * lifecycleFade",
+      "rotation": "R_spring_local * R_clip",
+      "translation": "rest",
+      "skipHiddenTierNodes": true,
+      "skipDisabledTierBehaviors": true
+    },
+    "clips": [
+      {
+        "id": "idle_sway",
+        "glbAnimation": "idle_sway",
+        "durationSec": 3.2,
+        "loop": true,
+        "interpolation": "LINEAR",
+        "rotationInterpolation": "SLERP",
+        "startEvent": "face_acquired",
+        "holdLast": false,
+        "targets": "sunflower_pivot"
+      },
+      {
+        "id": "bloom_in",
+        "glbAnimation": "bloom_in",
+        "durationSec": 1.0,
+        "loop": false,
+        "holdLast": true,
+        "interpolation": "LINEAR",
+        "startEvent": "face_acquired",
+        "targets": "sunflower_pivot"
+      },
+      {
+        "id": "burst",
+        "glbAnimation": "burst",
+        "durationSec": 0.9,
+        "loop": false,
+        "holdLast": false,
+        "interpolation": "LINEAR",
+        "targets": "sunflower_pivot"
+      }
+    ],
+    "trigger": {
+      "id": "burst_on_open",
+      "clip": "burst",
+      "signal": "jawOpen",
+      "valuePolicy": "hold_last_tracker_value_between_results",
+      "armedInitially": true,
+      "risingAbove": 0.55,
+      "fallingBelow": 0.35,
+      "cooldownMs": 900,
+      "restart": "ignore_if_playing",
+      "fireAt": "rising_edge_when_armed_and_cooldown_elapsed"
+    },
+    "driver": {
+      "id": "smile_swell",
+      "signal": "mean(mouthSmileLeft,mouthSmileRight)",
+      "normalization": {
+        "inputRange": [
+          0.25,
+          0.75
+        ],
+        "clamp": [
+          0.0,
+          1.0
+        ],
+        "easing": "smoothstep",
+        "equation": "u = clamp((x - 0.25) / (0.75 - 0.25), 0, 1); u = u*u*(3 - 2*u)"
+      },
+      "target": "1.0 + 0.12*u",
+      "smoothing": {
+        "equation": "y += (target-y) * (1-exp(-dt/0.120))",
+        "timeConstantSec": 0.12,
+        "initial": 1.0
+      },
+      "targets": "sunflower_petals_*_lod_*",
+      "effect": "uniform_scale_multiplier"
+    },
+    "spring": {
+      "id": "head_inertia",
+      "targets": "sunflower_pivot",
+      "angularVelocity": "rotvec(transpose(R_previous)*R_current)/dt",
+      "angularVelocityFrame": "sunflower_root_body_frame",
+      "angularAcceleration": "finite_difference_low_passed",
+      "lowPassTimeConstantSec": 0.04,
+      "maxAngularAccelerationRadPerSec2": 80.0,
+      "initialState": {
+        "a": [
+          0,
+          0,
+          0
+        ],
+        "b": [
+          0,
+          0,
+          0
+        ]
+      },
+      "stiffness": 90.0,
+      "dampingRatio": 0.3,
+      "damping": "2*zeta*sqrt(stiffness)",
+      "gain": 0.35,
+      "substepMaxSec": 0.008333333333333333,
+      "maxAngleDeg": 8.0,
+      "localConversion": "inverse(R_parent) * exp([a]x) * R_parent"
+    },
+    "lifecycle": {
+      "faceLost": {
+        "holdMs": 150,
+        "fadeMs": 200,
+        "fadeScale": "1 - tau^3",
+        "afterFade": "hide_layer_and_reset_all_behavior_state"
+      },
+      "resetState": {
+        "clipTimes": 0,
+        "drivers": 1.0,
+        "springs": 0,
+        "triggersArmed": true,
+        "lastFire": "-infinity"
+      },
+      "reacquiredDuringHoldOrFade": {
+        "cancelFade": true,
+        "easeRootScaleToOneMs": 100,
+        "preserveBehaviorState": true,
+        "replayBloom": false
+      }
+    }
+  },
+  "tiers": [
+    {
+      "id": "A",
+      "flowers": [
+        "sunflower"
+      ],
+      "visibleNodes": [
+        "sunflower_petals_outer_lod_a",
+        "sunflower_petals_inner_lod_a",
+        "sunflower_disk_lod_a",
+        "sunflower_foliage_lod_a"
+      ],
+      "hideNodes": [
+        "sunflower_petals_outer_lod_b",
+        "sunflower_petals_inner_lod_b",
+        "sunflower_disk_lod_b",
+        "sunflower_foliage_lod_b",
+        "sunflower_petals_outer_lod_c",
+        "sunflower_disk_lod_c",
+        "sunflower_foliage_lod_c"
+      ],
+      "drawCalls": 4,
+      "triangles": 2204,
+      "disableBehaviors": [],
+      "textureMaxSize": 1024
+    },
+    {
+      "id": "B",
+      "flowers": [
+        "sunflower"
+      ],
+      "visibleNodes": [
+        "sunflower_petals_outer_lod_b",
+        "sunflower_petals_inner_lod_b",
+        "sunflower_disk_lod_b",
+        "sunflower_foliage_lod_b"
+      ],
+      "hideNodes": [
+        "sunflower_petals_outer_lod_a",
+        "sunflower_petals_inner_lod_a",
+        "sunflower_disk_lod_a",
+        "sunflower_foliage_lod_a",
+        "sunflower_petals_outer_lod_c",
+        "sunflower_disk_lod_c",
+        "sunflower_foliage_lod_c"
+      ],
+      "drawCalls": 4,
+      "triangles": 840,
+      "disableBehaviors": [],
+      "textureMaxSize": 512
+    },
+    {
+      "id": "C",
+      "flowers": [
+        "sunflower"
+      ],
+      "visibleNodes": [
+        "sunflower_petals_outer_lod_c",
+        "sunflower_disk_lod_c",
+        "sunflower_foliage_lod_c"
+      ],
+      "hideNodes": [
+        "sunflower_petals_outer_lod_a",
+        "sunflower_petals_inner_lod_a",
+        "sunflower_disk_lod_a",
+        "sunflower_foliage_lod_a",
+        "sunflower_petals_outer_lod_b",
+        "sunflower_petals_inner_lod_b",
+        "sunflower_disk_lod_b",
+        "sunflower_foliage_lod_b"
+      ],
+      "drawCalls": 3,
+      "triangles": 400,
+      "disableBehaviors": [
+        "smile_swell",
+        "head_inertia",
+        "burst_on_open"
+      ],
+      "textureMaxSize": 256
+    }
+  ],
+  "features": [
+    "gltf2_static_nodes",
+    "gltf2_animation_clips",
+    "lambert_shading",
+    "face_mesh_occluder",
+    "head_proxy_occluder",
+    "behavior_clip",
+    "behavior_trigger",
+    "behavior_driver",
+    "behavior_spring",
+    "tier_overrides",
+    "face_lost_fade"
+  ],
+  "compatibility": {
+    "maxFaces": 1,
+    "multiFacePolicy": "render on face index 0 only",
+    "requiredBlendshapes": [
+      "jawOpen",
+      "mouthSmileLeft",
+      "mouthSmileRight"
+    ],
+    "canonicalCheekVertexIds": [
+      234,
+      454
+    ],
+    "segmentation": "none"
+  },
+  "stats": {
+    "clips": [
+      "idle_sway",
+      "bloom_in",
+      "burst"
+    ],
+    "drawCalls": {
+      "A": 4,
+      "B": 4,
+      "C": 3
+    },
+    "triangles": {
+      "A": 2204,
+      "B": 840,
+      "C": 400
+    },
+    "triangleBreakdownByLOD": {
+      "a": {
+        "sunflower_petals_outer_lod_a": 1536,
+        "sunflower_petals_inner_lod_a": 576,
+        "sunflower_disk_lod_a": 32,
+        "sunflower_foliage_lod_a": 60
+      },
+      "b": {
+        "sunflower_petals_outer_lod_b": 576,
+        "sunflower_petals_inner_lod_b": 192,
+        "sunflower_disk_lod_b": 24,
+        "sunflower_foliage_lod_b": 48
+      },
+      "c": {
+        "sunflower_petals_outer_lod_c": 360,
+        "sunflower_disk_lod_c": 16,
+        "sunflower_foliage_lod_c": 24
+      }
+    },
+    "flowerCount": 1,
+    "lodMeshSetCount": 3,
+    "embeddedTextureCount": 3
+  },
+  "verification": {
+    "deviceChecks": [
+      {
+        "id": "axes",
+        "check": "Draw RGB gizmo at head_center: X red, Y green, Z blue. Confirm Y points to top of head and Z toward the camera.",
+        "onFailure": "Fix once in the engine face-pose adapter; never compensate in the package."
+      },
+      {
+        "id": "projection_fov",
+        "check": "Draw the canonical face mesh as wireframe at yaw 0 and about 40 degrees; compare against live video.",
+        "onFailure": "Adjust engine projection to the FOV used to compute M."
+      },
+      {
+        "id": "canonical_side",
+        "check": "Confirm negative X maps to subject anatomical left with the device camera and final projection mirror policy. The catalogue preview displays subject-left on viewer-right.",
+        "onFailure": "Correct the face-pose adapter or the layer-side calibration once; do not mirror individual nodes."
+      },
+      {
+        "id": "cheek_vertex_ids",
+        "check": "Confirm canonical vertices 234 and 454 are the cheek-side points used to compute FW."
+      },
+      {
+        "id": "blendshape_names",
+        "check": "Confirm jawOpen, mouthSmileLeft and mouthSmileRight exist in the tracker output."
+      },
+      {
+        "id": "forehead_placement",
+        "check": "On a neutral face, verify the flower sits above the subject-left eyebrow and overlaps the hairline slightly without covering the eye."
+      },
+      {
+        "id": "head_proxy",
+        "check": "Render the head-proxy ellipsoid wireframe and confirm its top, temple width and rest clearance on device."
+      }
+    ],
+    "calibrationNotes": "The negative-X subject-left mapping, canonical vertex ids, face-pose axes, camera FOV, blendshape names and final on-face position are SDK/device VERIFY items. The proxy preview is illustrative and is not a camera calibration result."
+  },
+  "editingRules": {
+    "animatedNodesRestScale": 1.0,
+    "animatedNodesRestRotation": [
+      0,
+      0,
+      0,
+      1
+    ],
+    "scaleClipsEndAt": 1.0,
+    "rotationLoopsMustClose": true,
+    "newClipNamesMustBeAddedTo": "stats.clips",
+    "recomputeAssetHashes": true,
+    "runValidatorBeforePublish": true
+  },
+  "integrity": {
+    "rejectUnknownManifestFields": true,
+    "assetHashesRequired": true,
+    "allRenderAssetsSelfContained": true
+  }
+}

@@ -1,0 +1,1421 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xelvic.invalid/schemas/xfilter.schema.json",
+  "title": "Xelvic Face Filter Package v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "name",
+    "description",
+    "engineContract",
+    "preview",
+    "assets",
+    "units",
+    "faceAxes",
+    "anchors",
+    "calibration",
+    "model",
+    "materials",
+    "lighting",
+    "layer",
+    "occlusion",
+    "behaviors",
+    "tiers",
+    "features",
+    "compatibility",
+    "stats",
+    "verification",
+    "editingRules",
+    "integrity"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "engineContract": {
+      "const": "xfilter-face-3d/1"
+    },
+    "preview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "role"
+      ],
+      "properties": {
+        "path": {
+          "const": "preview.jpg"
+        },
+        "role": {
+          "const": "catalogue_proxy_head"
+        }
+      }
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "path",
+          "mediaType",
+          "sha256",
+          "bytes"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "mediaType": {
+            "const": "model/gltf-binary"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "units": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "distance",
+        "faceWidth"
+      ],
+      "properties": {
+        "distance": {
+          "const": "face_width"
+        },
+        "faceWidth": {
+          "const": 1.0
+        }
+      }
+    },
+    "faceAxes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "x",
+        "y",
+        "z",
+        "mirrorPolicy",
+        "primarySide",
+        "sideMapping"
+      ],
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "x": {
+          "type": "string"
+        },
+        "y": {
+          "type": "string"
+        },
+        "z": {
+          "type": "string"
+        },
+        "mirrorPolicy": {
+          "type": "string"
+        },
+        "primarySide": {
+          "type": "string"
+        },
+        "sideMapping": {
+          "type": "string"
+        }
+      }
+    },
+    "anchors": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "landmarks",
+          "offsetFW"
+        ],
+        "properties": {
+          "landmarks": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "weight"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 477
+                },
+                "weight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                }
+              }
+            }
+          },
+          "offsetFW": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "definition": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "head_center",
+        "faceWidthDefinition"
+      ],
+      "properties": {
+        "head_center": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "offsetFW",
+            "definition"
+          ],
+          "properties": {
+            "offsetFW": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "definition": {
+              "type": "string"
+            }
+          }
+        },
+        "faceWidthDefinition": {
+          "type": "string"
+        }
+      }
+    },
+    "calibration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tunableFields",
+        "projection",
+        "placementNotes"
+      ],
+      "properties": {
+        "tunableFields": {
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "number",
+              "array",
+              "string"
+            ]
+          }
+        },
+        "projection": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "camera",
+            "fieldOfView"
+          ],
+          "properties": {
+            "camera": {
+              "type": "string"
+            },
+            "fieldOfView": {
+              "type": "string"
+            }
+          }
+        },
+        "placementNotes": {
+          "type": "string"
+        }
+      }
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "asset",
+        "gltfVersion",
+        "scene",
+        "rootNode",
+        "pivotNode",
+        "attributes",
+        "indices",
+        "meshReuse",
+        "meshNames",
+        "flowerNodePattern",
+        "primaryFlowerNode",
+        "embeddedTextures",
+        "textureColorSpace",
+        "mipmaps",
+        "sampler",
+        "lodPolicy"
+      ],
+      "properties": {
+        "asset": {
+          "type": "string"
+        },
+        "gltfVersion": {
+          "const": "2.0"
+        },
+        "scene": {
+          "type": "string"
+        },
+        "rootNode": {
+          "type": "string"
+        },
+        "pivotNode": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 3
+        },
+        "indices": {
+          "const": "uint16"
+        },
+        "meshReuse": {
+          "type": "boolean"
+        },
+        "meshNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "flowerNodePattern": {
+          "type": "string"
+        },
+        "primaryFlowerNode": {
+          "type": "string"
+        },
+        "embeddedTextures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 3
+        },
+        "textureColorSpace": {
+          "const": "sRGB"
+        },
+        "mipmaps": {
+          "type": "boolean"
+        },
+        "sampler": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "magFilter",
+            "minFilter",
+            "wrapS",
+            "wrapT"
+          ],
+          "properties": {
+            "magFilter": {
+              "const": "LINEAR"
+            },
+            "minFilter": {
+              "const": "LINEAR_MIPMAP_LINEAR"
+            },
+            "wrapS": {
+              "const": "REPEAT"
+            },
+            "wrapT": {
+              "const": "REPEAT"
+            }
+          }
+        },
+        "lodPolicy": {
+          "type": "string"
+        }
+      }
+    },
+    "materials": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowedProperties",
+        "metallicFactor",
+        "roughnessFactor",
+        "alphaMode",
+        "doubleSided",
+        "backFaceNormal"
+      ],
+      "properties": {
+        "allowedProperties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 3
+        },
+        "metallicFactor": {
+          "const": 0.0
+        },
+        "roughnessFactor": {
+          "const": 1.0
+        },
+        "alphaMode": {
+          "const": "OPAQUE"
+        },
+        "doubleSided": {
+          "const": true
+        },
+        "backFaceNormal": {
+          "type": "string"
+        }
+      }
+    },
+    "lighting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shading",
+        "ambient",
+        "lights",
+        "space",
+        "formula",
+        "nodeScaleFloor"
+      ],
+      "properties": {
+        "shading": {
+          "const": "Lambert"
+        },
+        "ambient": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "lights": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "dirToLight",
+              "color",
+              "intensity"
+            ],
+            "properties": {
+              "dirToLight": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "color": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "intensity": {
+                "type": "number"
+              }
+            }
+          },
+          "minItems": 1
+        },
+        "space": {
+          "const": "camera_space"
+        },
+        "formula": {
+          "type": "string"
+        },
+        "nodeScaleFloor": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "layer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "asset",
+        "rootNode",
+        "anchor",
+        "offsetFW",
+        "rotationOffsetDeg",
+        "scale",
+        "anatomicalPlacement",
+        "occlusion"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "asset": {
+          "type": "string"
+        },
+        "rootNode": {
+          "type": "string"
+        },
+        "anchor": {
+          "type": "string"
+        },
+        "offsetFW": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "rotationOffsetDeg": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "scale": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "anatomicalPlacement": {
+          "type": "string"
+        },
+        "occlusion": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "faceMesh",
+            "headProxy",
+            "pushBackFW"
+          ],
+          "properties": {
+            "faceMesh": {
+              "type": "boolean"
+            },
+            "headProxy": {
+              "type": "boolean"
+            },
+            "pushBackFW": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "occlusion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "passOrder",
+        "faceMesh",
+        "headProxy",
+        "sunflower",
+        "hairSegmentation",
+        "hairRelation"
+      ],
+      "properties": {
+        "passOrder": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 4
+        },
+        "faceMesh": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "enabledByLayer",
+            "pushBackFW",
+            "direction"
+          ],
+          "properties": {
+            "enabledByLayer": {
+              "type": "boolean"
+            },
+            "pushBackFW": {
+              "type": "number"
+            },
+            "direction": {
+              "type": "string"
+            }
+          }
+        },
+        "headProxy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "enabledByLayer",
+            "shape",
+            "center",
+            "rotation",
+            "radiiFW",
+            "latSegments",
+            "lonSegments",
+            "pushBackFW",
+            "clearanceRatioMin",
+            "measuredRestClearanceRatio"
+          ],
+          "properties": {
+            "enabledByLayer": {
+              "type": "boolean"
+            },
+            "shape": {
+              "const": "ellipsoid"
+            },
+            "center": {
+              "type": "string"
+            },
+            "rotation": {
+              "type": "string"
+            },
+            "radiiFW": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "latSegments": {
+              "type": "integer"
+            },
+            "lonSegments": {
+              "type": "integer"
+            },
+            "pushBackFW": {
+              "type": "number"
+            },
+            "clearanceRatioMin": {
+              "type": "number"
+            },
+            "measuredRestClearanceRatio": {
+              "type": "number"
+            }
+          }
+        },
+        "sunflower": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "depthTest",
+            "depthWrite",
+            "culling"
+          ],
+          "properties": {
+            "depthTest": {
+              "type": "string"
+            },
+            "depthWrite": {
+              "type": "boolean"
+            },
+            "culling": {
+              "type": "string"
+            }
+          }
+        },
+        "hairSegmentation": {
+          "type": "string"
+        },
+        "hairRelation": {
+          "type": "string"
+        }
+      }
+    },
+    "behaviors": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "timebase",
+        "composition",
+        "clips",
+        "trigger",
+        "driver",
+        "spring",
+        "lifecycle"
+      ],
+      "properties": {
+        "timebase": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "clock",
+            "dtClamp",
+            "faceAcquired"
+          ],
+          "properties": {
+            "clock": {
+              "const": "render_seconds"
+            },
+            "dtClamp": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "faceAcquired": {
+              "type": "string"
+            }
+          }
+        },
+        "composition": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "scale",
+            "rotation",
+            "translation",
+            "skipHiddenTierNodes",
+            "skipDisabledTierBehaviors"
+          ],
+          "properties": {
+            "scale": {
+              "type": "string"
+            },
+            "rotation": {
+              "type": "string"
+            },
+            "translation": {
+              "type": "string"
+            },
+            "skipHiddenTierNodes": {
+              "type": "boolean"
+            },
+            "skipDisabledTierBehaviors": {
+              "type": "boolean"
+            }
+          }
+        },
+        "clips": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "glbAnimation",
+              "durationSec",
+              "loop",
+              "holdLast",
+              "interpolation",
+              "targets"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "glbAnimation": {
+                "type": "string"
+              },
+              "durationSec": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "loop": {
+                "type": "boolean"
+              },
+              "holdLast": {
+                "type": "boolean"
+              },
+              "interpolation": {
+                "const": "LINEAR"
+              },
+              "rotationInterpolation": {
+                "const": "SLERP"
+              },
+              "startEvent": {
+                "type": "string"
+              },
+              "targets": {
+                "type": "string"
+              }
+            }
+          },
+          "minItems": 3
+        },
+        "trigger": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "clip",
+            "signal",
+            "valuePolicy",
+            "armedInitially",
+            "risingAbove",
+            "fallingBelow",
+            "cooldownMs",
+            "restart",
+            "fireAt"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "clip": {
+              "type": "string"
+            },
+            "signal": {
+              "type": "string"
+            },
+            "valuePolicy": {
+              "type": "string"
+            },
+            "armedInitially": {
+              "type": "boolean"
+            },
+            "risingAbove": {
+              "type": "number"
+            },
+            "fallingBelow": {
+              "type": "number"
+            },
+            "cooldownMs": {
+              "type": "integer"
+            },
+            "restart": {
+              "type": "string"
+            },
+            "fireAt": {
+              "type": "string"
+            }
+          }
+        },
+        "driver": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "signal",
+            "normalization",
+            "target",
+            "smoothing",
+            "targets",
+            "effect"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "signal": {
+              "type": "string"
+            },
+            "normalization": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "inputRange",
+                "clamp",
+                "easing",
+                "equation"
+              ],
+              "properties": {
+                "inputRange": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "clamp": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "easing": {
+                  "type": "string"
+                },
+                "equation": {
+                  "type": "string"
+                }
+              }
+            },
+            "target": {
+              "type": "string"
+            },
+            "smoothing": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "equation",
+                "timeConstantSec",
+                "initial"
+              ],
+              "properties": {
+                "equation": {
+                  "type": "string"
+                },
+                "timeConstantSec": {
+                  "type": "number"
+                },
+                "initial": {
+                  "type": "number"
+                }
+              }
+            },
+            "targets": {
+              "type": "string"
+            },
+            "effect": {
+              "type": "string"
+            }
+          }
+        },
+        "spring": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "targets",
+            "angularVelocity",
+            "angularVelocityFrame",
+            "angularAcceleration",
+            "lowPassTimeConstantSec",
+            "maxAngularAccelerationRadPerSec2",
+            "initialState",
+            "stiffness",
+            "dampingRatio",
+            "damping",
+            "gain",
+            "substepMaxSec",
+            "maxAngleDeg",
+            "localConversion"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "targets": {
+              "type": "string"
+            },
+            "angularVelocity": {
+              "type": "string"
+            },
+            "angularVelocityFrame": {
+              "type": "string"
+            },
+            "angularAcceleration": {
+              "type": "string"
+            },
+            "lowPassTimeConstantSec": {
+              "type": "number"
+            },
+            "maxAngularAccelerationRadPerSec2": {
+              "type": "number"
+            },
+            "initialState": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "a",
+                "b"
+              ],
+              "properties": {
+                "a": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "b": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                }
+              }
+            },
+            "stiffness": {
+              "type": "number"
+            },
+            "dampingRatio": {
+              "type": "number"
+            },
+            "damping": {
+              "type": "string"
+            },
+            "gain": {
+              "type": "number"
+            },
+            "substepMaxSec": {
+              "type": "number"
+            },
+            "maxAngleDeg": {
+              "type": "number"
+            },
+            "localConversion": {
+              "type": "string"
+            }
+          }
+        },
+        "lifecycle": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "faceLost",
+            "resetState",
+            "reacquiredDuringHoldOrFade"
+          ],
+          "properties": {
+            "faceLost": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "holdMs",
+                "fadeMs",
+                "fadeScale",
+                "afterFade"
+              ],
+              "properties": {
+                "holdMs": {
+                  "type": "integer"
+                },
+                "fadeMs": {
+                  "type": "integer"
+                },
+                "fadeScale": {
+                  "type": "string"
+                },
+                "afterFade": {
+                  "type": "string"
+                }
+              }
+            },
+            "resetState": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "clipTimes",
+                "drivers",
+                "springs",
+                "triggersArmed",
+                "lastFire"
+              ],
+              "properties": {
+                "clipTimes": {
+                  "type": "number"
+                },
+                "drivers": {
+                  "type": "number"
+                },
+                "springs": {
+                  "type": "number"
+                },
+                "triggersArmed": {
+                  "type": "boolean"
+                },
+                "lastFire": {
+                  "type": "string"
+                }
+              }
+            },
+            "reacquiredDuringHoldOrFade": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "cancelFade",
+                "easeRootScaleToOneMs",
+                "preserveBehaviorState",
+                "replayBloom"
+              ],
+              "properties": {
+                "cancelFade": {
+                  "type": "boolean"
+                },
+                "easeRootScaleToOneMs": {
+                  "type": "integer"
+                },
+                "preserveBehaviorState": {
+                  "type": "boolean"
+                },
+                "replayBloom": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "tiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "flowers",
+          "visibleNodes",
+          "hideNodes",
+          "drawCalls",
+          "triangles",
+          "disableBehaviors",
+          "textureMaxSize"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "A",
+              "B",
+              "C"
+            ]
+          },
+          "flowers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "visibleNodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "hideNodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "drawCalls": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "triangles": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "disableBehaviors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "textureMaxSize": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maxFaces",
+        "multiFacePolicy",
+        "requiredBlendshapes",
+        "canonicalCheekVertexIds",
+        "segmentation"
+      ],
+      "properties": {
+        "maxFaces": {
+          "const": 1
+        },
+        "multiFacePolicy": {
+          "type": "string"
+        },
+        "requiredBlendshapes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 3
+        },
+        "canonicalCheekVertexIds": {
+          "const": [
+            234,
+            454
+          ]
+        },
+        "segmentation": {
+          "const": "none"
+        }
+      }
+    },
+    "stats": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "clips",
+        "drawCalls",
+        "triangles",
+        "triangleBreakdownByLOD",
+        "flowerCount",
+        "lodMeshSetCount",
+        "embeddedTextureCount"
+      ],
+      "properties": {
+        "clips": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 3
+        },
+        "drawCalls": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "A",
+            "B",
+            "C"
+          ],
+          "properties": {
+            "A": {
+              "type": "integer"
+            },
+            "B": {
+              "type": "integer"
+            },
+            "C": {
+              "type": "integer"
+            }
+          }
+        },
+        "triangles": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "A",
+            "B",
+            "C"
+          ],
+          "properties": {
+            "A": {
+              "type": "integer"
+            },
+            "B": {
+              "type": "integer"
+            },
+            "C": {
+              "type": "integer"
+            }
+          }
+        },
+        "triangleBreakdownByLOD": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "a",
+            "b",
+            "c"
+          ],
+          "properties": {
+            "a": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer"
+              }
+            },
+            "b": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer"
+              }
+            },
+            "c": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "flowerCount": {
+          "const": 1
+        },
+        "lodMeshSetCount": {
+          "const": 3
+        },
+        "embeddedTextureCount": {
+          "const": 3
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deviceChecks",
+        "calibrationNotes"
+      ],
+      "properties": {
+        "deviceChecks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "check"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "check": {
+                "type": "string"
+              },
+              "onFailure": {
+                "type": "string"
+              }
+            }
+          },
+          "minItems": 1
+        },
+        "calibrationNotes": {
+          "type": "string"
+        }
+      }
+    },
+    "editingRules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "animatedNodesRestScale",
+        "animatedNodesRestRotation",
+        "scaleClipsEndAt",
+        "rotationLoopsMustClose",
+        "newClipNamesMustBeAddedTo",
+        "recomputeAssetHashes",
+        "runValidatorBeforePublish"
+      ],
+      "properties": {
+        "animatedNodesRestScale": {
+          "const": 1.0
+        },
+        "animatedNodesRestRotation": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "scaleClipsEndAt": {
+          "const": 1.0
+        },
+        "rotationLoopsMustClose": {
+          "type": "boolean"
+        },
+        "newClipNamesMustBeAddedTo": {
+          "type": "string"
+        },
+        "recomputeAssetHashes": {
+          "type": "boolean"
+        },
+        "runValidatorBeforePublish": {
+          "type": "boolean"
+        }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rejectUnknownManifestFields",
+        "assetHashesRequired",
+        "allRenderAssetsSelfContained"
+      ],
+      "properties": {
+        "rejectUnknownManifestFields": {
+          "const": true
+        },
+        "assetHashesRequired": {
+          "type": "boolean"
+        },
+        "allRenderAssetsSelfContained": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "vec3": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "vec4": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 4,
+      "maxItems": 4
+    }
+  }
+}

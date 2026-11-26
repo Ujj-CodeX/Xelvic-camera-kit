@@ -1,0 +1,691 @@
+{
+  "packageFormat": "xelvic-filter-rnd",
+  "schemaVersion": 3,
+  "id": "furry_glasses_filter",
+  "name": "Furry Glasses",
+  "version": "1.0.0",
+  "description": "Oversized plush pink rounded-square eyewear with open eye apertures and curved rear temple arms, based on the supplied reference image.",
+  "minimumRuntimeVersion": 3,
+  "status": "RND_AUTHORING_PACKAGE_NOT_IMPORTABLE_BY_CURRENT_RUNTIME",
+  "coordinateSpace": {
+    "unit": "FACE_WIDTH",
+    "axes": {
+      "x": "+subject-right",
+      "y": "+up",
+      "z": "+camera"
+    },
+    "modelFront": "+Z",
+    "modelUp": "+Y",
+    "packageMirroring": "NONE",
+    "note": "Eye-line pose and display mirroring are owned by the engine exactly once. No asset-side flip or side compensation."
+  },
+  "requires": {
+    "features": [
+      "model.gltf2@1",
+      "anchor.eyesCenter@1",
+      "pose.rigidHeadAttachment@1",
+      "occlusion.faceMesh@1",
+      "occlusion.headProxyEllipsoid@1",
+      "occlusion.earTempleProxy@1",
+      "lifecycle.faceLost@1",
+      "render.opaqueModel@1"
+    ]
+  },
+  "compatibility": {
+    "maxFaces": 1,
+    "faceIndex": 0,
+    "requiredBlendshapes": [],
+    "minimumYawDeg": -40,
+    "maximumYawDeg": 40,
+    "note": "Rigid eyewear follows eye-line/head pose. No smile/mouth blendshape is required; face mesh and temple proxies are required for profile occlusion."
+  },
+  "assets": [
+    {
+      "path": "thumbnail.png",
+      "bytes": 73507,
+      "sha256": "c13408486e4829a050bf75d79f3e728ba572ba2750da0fda7f926bccf2ea7056"
+    },
+    {
+      "path": "assets/furry_plush_pink_srgb.png",
+      "bytes": 1040468,
+      "sha256": "68de97f7e11a109ded45c9116fdb7e290f8a93c7f63323f96f1ee11a3f35787f"
+    },
+    {
+      "path": "models/furry_glasses_lod_a.glb",
+      "bytes": 1290072,
+      "sha256": "a5a11205faeaee4b798475f311f7cdf55b7393a792f1ad94ce243b8eba5da53d"
+    },
+    {
+      "path": "models/furry_glasses_lod_b.glb",
+      "bytes": 1248712,
+      "sha256": "4ea696c855e6e0809759f9acc622b4c7b5ff32d9f5083927d545339bb4c0b5e6"
+    },
+    {
+      "path": "models/furry_glasses_lod_c.glb",
+      "bytes": 1221080,
+      "sha256": "44053ff6ef195709c311a0b4e4e394216d8256754d40eb7624c7a108375121b7"
+    }
+  ],
+  "layers": [
+    {
+      "id": "furry_glasses",
+      "type": "MODEL_3D",
+      "renderStage": "OPAQUE_MODELS",
+      "lods": [
+        {
+          "tier": "A",
+          "asset": "models/furry_glasses_lod_a.glb",
+          "drawCalls": 1,
+          "triangles": 6408,
+          "components": [
+            "leftFrame",
+            "rightFrame",
+            "bridge",
+            "leftNosePad",
+            "rightNosePad",
+            "leftTemple",
+            "rightTemple"
+          ],
+          "openApertures": 2
+        },
+        {
+          "tier": "B",
+          "asset": "models/furry_glasses_lod_b.glb",
+          "drawCalls": 1,
+          "triangles": 4528,
+          "components": [
+            "leftFrame",
+            "rightFrame",
+            "bridge",
+            "leftNosePad",
+            "rightNosePad",
+            "leftTemple",
+            "rightTemple"
+          ],
+          "openApertures": 2
+        },
+        {
+          "tier": "C",
+          "asset": "models/furry_glasses_lod_c.glb",
+          "drawCalls": 1,
+          "triangles": 3272,
+          "components": [
+            "leftFrame",
+            "rightFrame",
+            "bridge",
+            "leftNosePad",
+            "rightNosePad",
+            "leftTemple",
+            "rightTemple"
+          ],
+          "openApertures": 2
+        }
+      ],
+      "anchor": {
+        "type": "eyes_center",
+        "index": 0,
+        "weighting": "eyeLineCenter",
+        "useEyeLineRoll": true,
+        "positionSource": "bilateralEyeLandmarks"
+      },
+      "attachment": {
+        "mode": "RIGID_HEAD_POSE",
+        "deformWithExpression": false,
+        "poseSmoothing": "translation_plus_quaternion_slerp",
+        "boundedPrediction": true
+      },
+      "geometry": {
+        "unit": "FACE_WIDTH",
+        "modelPivot": "optical_center_between_eye_apertures",
+        "overallWidthFW": 0.908,
+        "overallHeightFW": 0.37,
+        "frontSurfaceLocalZFW": 0.09,
+        "backSurfaceLocalZFW": -0.06,
+        "outerHalfWidthFW": 0.222,
+        "outerHalfHeightFW": 0.185,
+        "innerHalfWidthFW": 0.142,
+        "innerHalfHeightFW": 0.106,
+        "eyeCenterOffsetsFW": [
+          -0.232,
+          0.232
+        ],
+        "templeArms": "curved rearward, tapering toward ear tips; follow head pose and pass behind head proxy",
+        "lensApertures": "OPEN_NO_LENS_GEOMETRY",
+        "frontFrameWidthFW": 0.908,
+        "totalPropBoundsFW": [
+          1.1235,
+          0.37,
+          0.493
+        ],
+        "bridgeApertureClearance": "Narrowed bridge stays outside both eye-aperture polygons; preserve eye openings."
+      },
+      "transform": {
+        "offsetFW": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.39
+        },
+        "scaleFW": 1.0,
+        "rotationDeg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "fit": {
+        "to": "ipd",
+        "ratio": 1.96,
+        "preserveAspect": true,
+        "referenceBounds": "FRONT_FRAME_ONLY",
+        "alignment": "bilateralEyeLandmarks"
+      },
+      "occlusion": {
+        "faceMesh": {
+          "enabled": true,
+          "pushBackFW": 0.012,
+          "depthWrite": true,
+          "colorWrite": false,
+          "stage": "CLEAR_DEPTH_AND_OCCLUDERS"
+        },
+        "headProxyEllipsoid": {
+          "enabled": true,
+          "centerOffsetFW": {
+            "x": 0.0,
+            "y": -0.12,
+            "z": 0.0
+          },
+          "radiiFW": {
+            "x": 0.58,
+            "y": 0.78,
+            "z": 0.36
+          },
+          "depthWrite": true,
+          "colorWrite": false,
+          "stage": "CLEAR_DEPTH_AND_OCCLUDERS"
+        },
+        "earTempleProxy": {
+          "enabled": true,
+          "shape": "BILATERAL_CAPSULES",
+          "radiusFW": 0.042,
+          "depthWrite": true,
+          "colorWrite": false,
+          "yawCoverageTargetDeg": 40,
+          "stage": "CLEAR_DEPTH_AND_OCCLUDERS",
+          "pathsFW": [
+            [
+              [
+                -0.465,
+                -0.012,
+                -0.045
+              ],
+              [
+                -0.505,
+                -0.028,
+                -0.115
+              ],
+              [
+                -0.535,
+                -0.055,
+                -0.22
+              ],
+              [
+                -0.535,
+                -0.086,
+                -0.335
+              ]
+            ],
+            [
+              [
+                0.465,
+                -0.012,
+                -0.045
+              ],
+              [
+                0.505,
+                -0.028,
+                -0.115
+              ],
+              [
+                0.535,
+                -0.055,
+                -0.22
+              ],
+              [
+                0.535,
+                -0.086,
+                -0.335
+              ]
+            ]
+          ]
+        },
+        "profilePolicy": "Face mesh depth hides frame sections only where the face is in front. Head ellipsoid and bilateral temple/ear capsules hide the rear arms progressively during yaw. Front rims remain forward of eye sockets. No screen-space side clipping."
+      },
+      "material": {
+        "workflow": "PBR_METALLIC_ROUGHNESS",
+        "baseColorTexture": "EMBEDDED_SRGB",
+        "textureAsset": "assets/furry_plush_pink_srgb.png",
+        "alphaMode": "OPAQUE",
+        "mipmaps": true,
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.92,
+        "doubleSided": true,
+        "surfaceStyle": "SHORT_FIBRE_PLUSH"
+      },
+      "render": {
+        "passOrder": [
+          "CAMERA_FRAME",
+          "REGION_MASK",
+          "CAMERA_PIXEL_PASSES",
+          "CLEAR_DEPTH_AND_OCCLUDERS",
+          "OPAQUE_MODELS",
+          "ALPHA_LENSES",
+          "POST_NODES",
+          "OVERLAY_NODES"
+        ],
+        "activePass": "OPAQUE_MODELS",
+        "transparentSubmeshes": false,
+        "drawFaceAndProxyOccludersBeforeModel": true
+      },
+      "behaviors": {
+        "animation": {
+          "enabled": false,
+          "reason": "Reference is static eyewear; avoid unnecessary motion and keep eye alignment stable."
+        },
+        "tierPolicy": {
+          "A": "full contour detail",
+          "B": "reduced contour detail",
+          "C": "reduced contour detail",
+          "lodOnlyReduces": "mesh tessellation",
+          "allComponentsPreserved": true
+        }
+      },
+      "lifecycle": {
+        "faceLost": {
+          "holdMs": 150,
+          "fadeMs": 220,
+          "then": "RESET"
+        },
+        "filterSwitch": {
+          "trackerRestart": false,
+          "reuseTrackingState": true,
+          "preloadTexture": true,
+          "reuseTopology": true
+        }
+      }
+    }
+  ],
+  "calibration": {
+    "tunableFields": [
+      {
+        "path": "layers.furry_glasses.transform.offsetFW.x",
+        "default": 0.0,
+        "min": -0.025,
+        "max": 0.025,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.transform.offsetFW.y",
+        "default": 0.0,
+        "min": -0.035,
+        "max": 0.035,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.transform.offsetFW.z",
+        "default": 0.39,
+        "min": 0.34,
+        "max": 0.45,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.transform.scaleFW",
+        "default": 1.0,
+        "min": 0.92,
+        "max": 1.08,
+        "unit": "multiplier"
+      },
+      {
+        "path": "layers.furry_glasses.fit.ratio",
+        "default": 1.96,
+        "min": 1.88,
+        "max": 2.04,
+        "unit": "frontFrameWidth / IPD"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.faceMesh.pushBackFW",
+        "default": 0.012,
+        "min": 0.006,
+        "max": 0.02,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.headProxyEllipsoid.centerOffsetFW.x",
+        "default": 0.0,
+        "min": -0.03,
+        "max": 0.03,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.headProxyEllipsoid.centerOffsetFW.y",
+        "default": -0.12,
+        "min": -0.18,
+        "max": -0.06,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.headProxyEllipsoid.centerOffsetFW.z",
+        "default": 0.0,
+        "min": -0.04,
+        "max": 0.04,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.headProxyEllipsoid.radiiFW.x",
+        "default": 0.58,
+        "min": 0.53,
+        "max": 0.63,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.headProxyEllipsoid.radiiFW.y",
+        "default": 0.78,
+        "min": 0.7,
+        "max": 0.86,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.headProxyEllipsoid.radiiFW.z",
+        "default": 0.36,
+        "min": 0.31,
+        "max": 0.41,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.radiusFW",
+        "default": 0.042,
+        "min": 0.03,
+        "max": 0.055,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.rearwardOffsetFW",
+        "default": 0.16,
+        "min": 0.12,
+        "max": 0.22,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.lifecycle.faceLost.holdMs",
+        "default": 150,
+        "min": 100,
+        "max": 220,
+        "unit": "ms"
+      },
+      {
+        "path": "layers.furry_glasses.lifecycle.faceLost.fadeMs",
+        "default": 220,
+        "min": 160,
+        "max": 320,
+        "unit": "ms"
+      },
+      {
+        "path": "layers.furry_glasses.material.roughnessFactor",
+        "default": 0.92,
+        "min": 0.84,
+        "max": 0.98,
+        "unit": "factor"
+      },
+      {
+        "path": "layers.furry_glasses.geometry.outerHalfWidthFW",
+        "default": 0.222,
+        "min": 0.21,
+        "max": 0.235,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.geometry.outerHalfHeightFW",
+        "default": 0.185,
+        "min": 0.17,
+        "max": 0.2,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.geometry.innerHalfWidthFW",
+        "default": 0.142,
+        "min": 0.13,
+        "max": 0.15,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.geometry.innerHalfHeightFW",
+        "default": 0.106,
+        "min": 0.095,
+        "max": 0.115,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.geometry.eyeCenterOffsetFW",
+        "default": 0.232,
+        "min": 0.22,
+        "max": 0.245,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.material.metallicFactor",
+        "default": 0.0,
+        "min": -0.02,
+        "max": 0.02,
+        "unit": "factor"
+      },
+      {
+        "path": "layers.furry_glasses.geometry.frontSurfaceLocalZFW",
+        "default": 0.09,
+        "min": 0.08,
+        "max": 0.09999999999999999,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.geometry.backSurfaceLocalZFW",
+        "default": -0.06,
+        "min": -0.06999999999999999,
+        "max": -0.049999999999999996,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.0.0.x",
+        "default": -0.465,
+        "min": -0.47500000000000003,
+        "max": -0.455,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.0.0.y",
+        "default": -0.012,
+        "min": -0.022,
+        "max": -0.002,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.0.0.z",
+        "default": -0.045,
+        "min": -0.065,
+        "max": -0.024999999999999998,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.0.1.x",
+        "default": -0.505,
+        "min": -0.515,
+        "max": -0.495,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.0.1.y",
+        "default": -0.028,
+        "min": -0.038,
+        "max": -0.018000000000000002,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.0.1.z",
+        "default": -0.115,
+        "min": -0.135,
+        "max": -0.095,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.0.2.x",
+        "default": -0.535,
+        "min": -0.545,
+        "max": -0.525,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.0.2.y",
+        "default": -0.055,
+        "min": -0.065,
+        "max": -0.045,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.0.2.z",
+        "default": -0.22,
+        "min": -0.24,
+        "max": -0.2,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.0.3.x",
+        "default": -0.535,
+        "min": -0.545,
+        "max": -0.525,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.0.3.y",
+        "default": -0.086,
+        "min": -0.09599999999999999,
+        "max": -0.076,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.0.3.z",
+        "default": -0.335,
+        "min": -0.35500000000000004,
+        "max": -0.315,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.1.0.x",
+        "default": 0.465,
+        "min": 0.455,
+        "max": 0.47500000000000003,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.1.0.y",
+        "default": -0.012,
+        "min": -0.022,
+        "max": -0.002,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.1.0.z",
+        "default": -0.045,
+        "min": -0.065,
+        "max": -0.024999999999999998,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.1.1.x",
+        "default": 0.505,
+        "min": 0.495,
+        "max": 0.515,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.1.1.y",
+        "default": -0.028,
+        "min": -0.038,
+        "max": -0.018000000000000002,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.1.1.z",
+        "default": -0.115,
+        "min": -0.135,
+        "max": -0.095,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.1.2.x",
+        "default": 0.535,
+        "min": 0.525,
+        "max": 0.545,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.1.2.y",
+        "default": -0.055,
+        "min": -0.065,
+        "max": -0.045,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.1.2.z",
+        "default": -0.22,
+        "min": -0.24,
+        "max": -0.2,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.1.3.x",
+        "default": 0.535,
+        "min": 0.525,
+        "max": 0.545,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.1.3.y",
+        "default": -0.086,
+        "min": -0.09599999999999999,
+        "max": -0.076,
+        "unit": "FW"
+      },
+      {
+        "path": "layers.furry_glasses.occlusion.earTempleProxy.pathsFW.1.3.z",
+        "default": -0.335,
+        "min": -0.35500000000000004,
+        "max": -0.315,
+        "unit": "FW"
+      }
+    ],
+    "initialValuesStatus": "authoring_estimates_require_camera_calibration"
+  },
+  "performance": {
+    "declaredFrameCost": "NOT_MEASURED",
+    "tiers": [
+      "A",
+      "B",
+      "C"
+    ],
+    "drawCalls": {
+      "A": 1,
+      "B": 1,
+      "C": 1
+    },
+    "triangles": {
+      "A": 6408,
+      "B": 4528,
+      "C": 3272
+    },
+    "textureBytes": 1040468
+  },
+  "authoringNotes": [
+    "No camera mirroring is baked into model or manifest; engine applies front-camera mirror once.",
+    "No lens panes are modelled: eyes remain visible through the two apertures as in the reference.",
+    "Occlusion requires a consistent face/head depth proxy and the same projection for occluders and model.",
+    "The eyewear is a rigid prop attached to the eye line; it should not be warped by smile or mouth blendshapes.",
+    "Static manifest values are starting estimates. Profile occlusion and vertical fit require per-device live calibration."
+  ]
+}

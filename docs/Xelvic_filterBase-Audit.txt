@@ -1,0 +1,115 @@
+#1 -- camerakit-sample-basic
+
+Camera Kit Basic Sample
+This example app shows the most simplistic Camera Kit implementation, applying a single lens.
+
+Whether you are building a brand new app or integrating Camera Kit in your existing app, this could be the starting point from where you can build custom UX or logics around Camera Kit.
+
+We recommend you to add error handling, capture and share buttons on top of this app.
+
+Build
+Open project's AndroidManifest.xml file and update value for com.snap.camerakit.api.token This can be found under IDs and Tokens in your Lenses Portal (Under the apps tab).
+Within the sample/basic/MainActivity.kt file, update the values for LENS_GROUP_ID and LENS_ID with your desired lens, also retrieved from the Lenses Portal.
+To build, install and launch the camerakit-sample-basic on a connected device follow one of the following options:
+
+Command Line
+./gradlew camerakit-sample-basic:installDebug
+
+adb shell am start -n com.snap.camerakit.sample.basic/com.snap.camerakit.sample.basic.   MainActivity
+
+IDE
+Select the camerakit-sample-basic module configuration and click run:
+
+run-android-studio
+
+Steps to integrate Camera Kit
+Add the required dependencies for Camera Kit:
+// Provides the core implementation of Camera Kit`  
+implementation "com.snap.camerakit:camerakit:$cameraKitVersion"  
+
+// [Optional] Implementation of Camera pipeline for Camera Kit using CameraX library  
+implementation "com.snap.camerakit:support-camerax:$cameraKitVersion" 
+In your layout xml file, add a ViewStub and attach that to Camera Kit Session using attachTo method. Provided ViewStub will inflate view hierarchy of Session which includes rendering camera preview with lenses. If no ViewStub is provided then Session does not attempt to render any views while the output of camera preview can be attached to using ImageProcessor.connectOutput. If you cannot provide ViewStub and connect output manually then it will not be possible for lenses to receive user’s touch input.
+Add ViewStub to xml like this:
+
+<ViewStub  
+   android:id="@+id/camera_kit_stub"
+   android:layout_width="match_parent"  
+   android:layout_height="match_parent" />  
+Pass this View to Camera Kit Session like this:
+import com.snap.camerakit.invoke
+import com.snap.camerakit.support.camerax.CameraXImageProcessorSource
+
+val imageProcessorSource = CameraXImageProcessorSource(
+  context = this,
+  lifecycleOwner = this
+)
+
+val cameraKitSession = Session(context = this) {
+  apiToken(ADD_API_TOKEN_HERE)
+  imageProcessorSource(imageProcessorSource)
+  attachTo(findViewById(R.id.camera_kit_stub))
+}.apply {
+  lenses.repository.observe(
+      LensesComponent.Repository.QueryCriteria.ById(ADD_LENS_ID_HERE, ADD_GROUP_ID_HERE)
+  ) { result ->
+      result.whenHasFirst { requestedLens ->
+          // applying the Lens here
+          lenses.processor.apply(requestedLens)
+      }
+  }
+}
+
+
+#2--> Camera Kit Sample Custom Lenses Carousel and Camera Preview
+This example app shows how to create a custom carousel for your lenses and use a custom layout to display a camera preview with lenses applied using Camera Kit.
+
+Build
+Open project's gradle.properties file and enter values for com.snap.camerakit.api.token from Snap Kit Developer Portal and com.snap.camerakit.lenses.group.id from your My Lenses Portal (Under the apps tab). After that to build, install and launch the camerakit-sample-custom-carousel on a connected device follow one of the following options:
+
+Command Line
+./gradlew camerakit-sample-custom-carousel:installDebug
+
+adb shell am start -n com.snap.camerakit.sample.carousel/com.snap.camerakit.sample.carousel.MainActivity
+
+IDE
+Select the camerakit-sample-custom-carousel module configuration and click run:
+
+run-android-studio
+
+Steps to create custom layout and lenses carousel
+Create a ViewStub that you will be passing to Camera Kit Session object. In this sample app this is done in activity_main.xml file with a View with camera_kit_stub ID. This View will be used to inflate a view hierarchy from the Camera Kit Session which includes rendering camera preview with a lens applied.
+Attach the ViewStub to Camera Kit Session using its builder's attachTo method. This is done in MainActivity.kt file in this example.
+In this sample we are using the Camera Kit's CameraXImageProcessorSource support class for the image processing input at the time of Session creation in MainActivity.kt file. However, you are free to use your own image processing input and connect it to Session.processor.
+We are using RecyclerView with GridLayoutManager for the lenses carousel. Once you have the view hierarchy setup you can simply query the lenses repository from the Session.lenses object to fetch lenses group and fill the RecyclerView with the group's items using custom layout as a carousel.
+Fetching from the lenses repository is done in the MainActivity.kt file using the cameraKitSession.lenses.repository.observe method - the retrieved list of lenses are then passed on to LensesAdapter.kt file as a list of LensesComponent.Lens objects.
+Interaction examples
+Open the lenses carousel by clicking on the lens explorer button to the left of the capture button:
+
+slide-up-lenses-sheet
+
+Click on the lens icon to apply that particular lens with auto-flip camera (front or rear facing) as per the lens' camera facing preference set in the Lens Studio project.
+
+Swipe down to go full screen and hide the lenses carousel:
+
+slide-down-lenses-sheet
+
+Flip the camera button to toggle between the front or the rear facing camera.
+
+Highlight the selected lens item in lenses carousel.
+
+slide-down-lenses-sheet
+
+Capture a photo or a video to preview it, and share it with other apps using the Android's share sheet:
+
+share-sheet
+
+Click on the cancel button to clear any applied lens and present the camera with no lens applied:
+
+cancel-effect
+
+Tap on the preview screen while the lenses carousel is open to make it go full screen:
+
+tap-to-full-screen        
+
+#3--> 

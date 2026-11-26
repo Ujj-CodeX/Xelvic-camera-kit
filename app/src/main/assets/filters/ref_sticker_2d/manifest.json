@@ -1,0 +1,58 @@
+{
+  "schema": "xfilter/3",
+  "id": "ref_sticker_2d",
+  "name": "Star Cheek",
+  "version": "1.0.0",
+  "requires": {
+    "runtime": 3,
+    "features": [
+      "node.sprite@1",
+      "material.unlit@1",
+      "blend.alpha@1"
+    ],
+    "faces": 1
+  },
+  "materials": {
+    "mat_star": {
+      "template": "unlit@1",
+      "params": {
+        "map": "star"
+      },
+      "blend": "alpha"
+    }
+  },
+  "nodes": [
+    {
+      "id": "star_node",
+      "type": "sprite",
+      "anchor": "cheek_left",
+      "material": "mat_star",
+      "asset": "star",
+      "size": {
+        "widthFW": 0.18,
+        "heightFW": 0.18
+      },
+      "transform": {
+        "position": [
+          0.0,
+          0.0,
+          0.02
+        ],
+        "rotationFollow": "full"
+      }
+    }
+  ],
+  "preview": {
+    "path": "preview.jpg",
+    "role": "thumbnail"
+  },
+  "assets": [
+    {
+      "id": "star",
+      "type": "image",
+      "path": "assets/star.png",
+      "sha256": "37a26a5914f4b898615bc9feb83c6e8010cae7fe12b9e69ce76ee5cbaa239f5b",
+      "bytes": 104
+    }
+  ]
+}

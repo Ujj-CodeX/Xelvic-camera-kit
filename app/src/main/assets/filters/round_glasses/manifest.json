@@ -1,0 +1,120 @@
+{
+  "schema": "xfilter/3",
+  "id": "round_glasses",
+  "name": "Round Glasses",
+  "version": "1.0.0",
+  "description": "Reference 3D glasses with two anchors, alpha-blended lenses, and head occluder",
+  "requires": {
+    "runtime": 3,
+    "features": [
+      "node.model@1",
+      "material.lambert@1",
+      "material.unlit@1",
+      "blend.alpha@1",
+      "blend.opaque@1",
+      "occluder.ellipsoid@1"
+    ],
+    "faces": 1
+  },
+  "materials": {
+    "frame": {
+      "template": "lambert@1",
+      "params": {
+        "color": [
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      "blend": "opaque",
+      "depthTest": true,
+      "depthWrite": true
+    },
+    "lens": {
+      "template": "unlit@1",
+      "params": {
+        "color": [
+          0.6,
+          0.8,
+          1.0
+        ],
+        "opacity": 0.25
+      },
+      "blend": "alpha",
+      "depthTest": true,
+      "depthWrite": false
+    }
+  },
+  "lighting": {
+    "space": "camera",
+    "ambient": [
+      0.4,
+      0.4,
+      0.4
+    ],
+    "lights": [
+      {
+        "dirToLight": [
+          0.0,
+          0.6,
+          0.8
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intensity": 0.7
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "head",
+      "type": "occluder",
+      "anchor": "head_center",
+      "shape": "ellipsoid",
+      "radiiFW": [
+        0.56,
+        0.66,
+        0.68
+      ],
+      "segments": [
+        16,
+        24
+      ]
+    },
+    {
+      "id": "glasses",
+      "type": "model",
+      "anchor": "eye_center",
+      "asset": "g",
+      "transform": {
+        "position": [
+          0.0,
+          0.0,
+          0.1
+        ],
+        "scale": 1.0,
+        "rotationFollow": "full"
+      },
+      "tags": [
+        "frame",
+        "lens"
+      ]
+    }
+  ],
+  "preview": {
+    "path": "preview.jpg",
+    "role": "thumbnail"
+  },
+  "assets": [
+    {
+      "id": "g",
+      "type": "model",
+      "path": "assets/glasses.glb",
+      "sha256": "2b49b4c5ed410b3b13faf270d28f1ff2ca7e49bbcb8b4b289998eaf547aed091",
+      "bytes": 1476
+    }
+  ]
+}

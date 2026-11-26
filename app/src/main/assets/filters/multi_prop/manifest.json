@@ -1,0 +1,202 @@
+{
+  "schema": "xfilter/3",
+  "id": "multi_prop",
+  "name": "Multi Prop",
+  "version": "1.0.0",
+  "description": "Reference multi-prop filter demonstrating multiple nodes, custom anchors, tap triggers, and event emission",
+  "requires": {
+    "runtime": 3,
+    "features": [
+      "node.group@1",
+      "node.sprite@1",
+      "node.model@1",
+      "material.unlit@1",
+      "material.lambert@1",
+      "blend.alpha@1",
+      "behavior.trigger@1"
+    ],
+    "faces": 1
+  },
+  "anchors": {
+    "brow_custom": {
+      "landmarks": [
+        {
+          "id": 70,
+          "weight": 0.5
+        },
+        {
+          "id": 105,
+          "weight": 0.5
+        }
+      ],
+      "offsetFW": [
+        0.0,
+        0.05,
+        0.02
+      ]
+    }
+  },
+  "materials": {
+    "mat_hat": {
+      "template": "lambert@1",
+      "params": {
+        "color": [
+          0.15,
+          0.15,
+          0.2
+        ]
+      },
+      "blend": "opaque"
+    },
+    "mat_mustache": {
+      "template": "unlit@1",
+      "params": {
+        "map": "mustache_tex"
+      },
+      "blend": "alpha"
+    },
+    "mat_monocle": {
+      "template": "unlit@1",
+      "params": {
+        "map": "monocle_tex"
+      },
+      "blend": "alpha"
+    }
+  },
+  "lighting": {
+    "space": "camera",
+    "ambient": [
+      0.35,
+      0.35,
+      0.35
+    ],
+    "lights": [
+      {
+        "dirToLight": [
+          0.0,
+          0.8,
+          0.6
+        ],
+        "color": [
+          1.0,
+          0.95,
+          0.9
+        ],
+        "intensity": 0.8
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "prop_top_hat",
+      "type": "model",
+      "anchor": "forehead",
+      "asset": "hat_model",
+      "transform": {
+        "position": [
+          0.0,
+          0.25,
+          -0.05
+        ],
+        "scale": 0.8,
+        "rotationFollow": "full"
+      },
+      "tags": [
+        "prop",
+        "headwear"
+      ]
+    },
+    {
+      "id": "prop_mustache",
+      "type": "sprite",
+      "anchor": "mouth_center",
+      "material": "mat_mustache",
+      "asset": "mustache_tex",
+      "size": {
+        "widthFW": 0.35,
+        "heightFW": 0.12
+      },
+      "transform": {
+        "position": [
+          0.0,
+          0.08,
+          0.02
+        ],
+        "rotationFollow": "full"
+      },
+      "tags": [
+        "prop",
+        "facial_hair"
+      ]
+    },
+    {
+      "id": "prop_monocle",
+      "type": "sprite",
+      "anchor": "brow_custom",
+      "material": "mat_monocle",
+      "asset": "monocle_tex",
+      "size": {
+        "widthFW": 0.18,
+        "heightFW": 0.18
+      },
+      "transform": {
+        "position": [
+          0.0,
+          -0.02,
+          0.02
+        ],
+        "rotationFollow": "full"
+      },
+      "visible": true,
+      "tags": [
+        "prop",
+        "eyewear"
+      ]
+    }
+  ],
+  "behaviors": [
+    {
+      "id": "tap_toggle_monocle",
+      "type": "trigger",
+      "on": "tap",
+      "cooldownMs": 250,
+      "onFire": [
+        {
+          "action": "toggleVisible",
+          "target": "node:prop_monocle"
+        },
+        {
+          "action": "emit",
+          "clip": "custom_multi_prop_tapped"
+        }
+      ]
+    }
+  ],
+  "preview": {
+    "path": "preview.jpg",
+    "role": "thumbnail"
+  },
+  "assets": [
+    {
+      "id": "hat_model",
+      "type": "model",
+      "path": "assets/hat.glb",
+      "sha256": "d863b93ddd9070dadf95b6f0f90561caa304ed2bb13d90e1ca5e9ffb0ef82149",
+      "bytes": 1252
+    },
+    {
+      "id": "mustache_tex",
+      "type": "image",
+      "path": "assets/mustache.png",
+      "sha256": "52a2f00930e799cf315f1619dd52ec03409e582528ef7e33947c0c85b1b20668",
+      "bytes": 92
+    },
+    {
+      "id": "monocle_tex",
+      "type": "image",
+      "path": "assets/monocle.png",
+      "sha256": "358d2a3f1e3c1e37903e4f7b8c7b6a71f8a783491c6661be3e98d67a7bf85836",
+      "bytes": 83
+    }
+  ]
+}

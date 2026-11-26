@@ -1,0 +1,255 @@
+{
+  "schema": "xfilter/3",
+  "id": "light_lens",
+  "name": "Light Lens",
+  "version": "1.0.0",
+  "description": "Natural light beauty look with restrained skin smoothing, pore preservation, soft highlight glow, subtle pink lip and cheek tint, gentle warm-neutral grading and minimal face shaping.",
+  "preview": "preview.jpg",
+  "requires": {
+    "runtime": 3,
+    "features": [
+      "runtime@3",
+      "node.post@1",
+      "post.warp@1",
+      "post.bilateral@1",
+      "post.softFocus@1",
+      "post.colorGrade@1",
+      "post.vignette@1",
+      "pixel.recolor@1",
+      "behavior.map@1"
+    ]
+  },
+  "assets": [
+    {
+      "id": "preview_thumb",
+      "type": "image",
+      "uri": "preview.jpg",
+      "sha256": "13ed85fb9904e38a516d0c24c9257e059496b9a6487f219966734fd8a216221b",
+      "bytes": 34365
+    }
+  ],
+  "params": {
+    "smoothStrength": {
+      "type": "float",
+      "default": 0.42,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "poreDetail": {
+      "type": "float",
+      "default": 0.84,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "softGlow": {
+      "type": "float",
+      "default": 0.18,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "jawSlimming": {
+      "type": "float",
+      "default": 0.08,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "eyeBig": {
+      "type": "float",
+      "default": 0.05,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "noseSlimming": {
+      "type": "float",
+      "default": 0.04,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "goldenWarmth": {
+      "type": "float",
+      "default": 0.045,
+      "min": -1.0,
+      "max": 1.0
+    },
+    "lipTintStrength": {
+      "type": "float",
+      "default": 0.12,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "cheekTintStrength": {
+      "type": "float",
+      "default": 0.075,
+      "min": 0.0,
+      "max": 1.0
+    }
+  },
+  "nodes": [
+    {
+      "id": "face_subtle_morph",
+      "type": "post",
+      "effect": "warp",
+      "params": {
+        "jawSlim": "$jawSlimming",
+        "eyeEnlarge": "$eyeBig",
+        "noseSlim": "$noseSlimming",
+        "chinVLine": 0.05,
+        "radiusFW": 0.4,
+        "intensity": 0.55
+      },
+      "renderOrder": 90
+    },
+    {
+      "id": "skin_bilateral_smooth",
+      "type": "post",
+      "effect": "bilateral",
+      "mask": "$mask:skin",
+      "params": {
+        "amount": "$smoothStrength",
+        "radius": 2.6,
+        "edgePreserve": 0.9,
+        "detailPreserve": "$poreDetail",
+        "intensity": 1.0
+      },
+      "renderOrder": 100
+    },
+    {
+      "id": "natural_lip_tint",
+      "type": "recolor",
+      "effect": "recolor",
+      "mask": "$mask:lips",
+      "params": {
+        "color": "#B96F7B",
+        "strength": "$lipTintStrength",
+        "luminancePreserve": 0.96,
+        "intensity": 1.0
+      },
+      "renderOrder": 105
+    },
+    {
+      "id": "soft_cheek_blush",
+      "type": "recolor",
+      "effect": "recolor",
+      "mask": "$mask:cheeks",
+      "params": {
+        "color": "#C98288",
+        "strength": "$cheekTintStrength",
+        "luminancePreserve": 0.94,
+        "intensity": 1.0
+      },
+      "renderOrder": 106
+    },
+    {
+      "id": "light_soft_focus",
+      "type": "post",
+      "effect": "softFocus",
+      "params": {
+        "amount": "$softGlow",
+        "radius": 3.2,
+        "threshold": 0.7,
+        "warmth": 0.025,
+        "intensity": 0.38
+      },
+      "renderOrder": 110
+    },
+    {
+      "id": "light_tone_grade",
+      "type": "post",
+      "effect": "colorGrade",
+      "params": {
+        "warmth": "$goldenWarmth",
+        "contrast": 1.025,
+        "saturation": 1.025,
+        "exposure": 0.035,
+        "tint": 0.015,
+        "intensity": 1.0
+      },
+      "renderOrder": 120
+    },
+    {
+      "id": "portrait_vignette",
+      "type": "post",
+      "effect": "vignette",
+      "params": {
+        "radius": 1.05,
+        "softness": 0.72,
+        "amount": 0.055,
+        "intensity": 0.3
+      },
+      "renderOrder": 130
+    }
+  ],
+  "behaviors": [
+    {
+      "id": "fade_light_look_with_face",
+      "type": "map",
+      "input": "face.fade",
+      "inputRange": [
+        0.0,
+        1.0
+      ],
+      "outputRange": [
+        0.0,
+        1.0
+      ],
+      "writes": [
+        {
+          "path": "face_subtle_morph.opacity",
+          "mode": "multiply"
+        },
+        {
+          "path": "skin_bilateral_smooth.opacity",
+          "mode": "multiply"
+        },
+        {
+          "path": "natural_lip_tint.opacity",
+          "mode": "multiply"
+        },
+        {
+          "path": "soft_cheek_blush.opacity",
+          "mode": "multiply"
+        },
+        {
+          "path": "light_soft_focus.opacity",
+          "mode": "multiply"
+        }
+      ]
+    }
+  ],
+  "tiers": {
+    "A": {
+      "paramOverrides": {}
+    },
+    "B": {
+      "paramOverrides": {
+        "post:skin_bilateral_smooth.radius": 1.9,
+        "post:light_soft_focus.amount": 0.12
+      }
+    },
+    "C": {
+      "hideNodes": [
+        "face_subtle_morph",
+        "skin_bilateral_smooth"
+      ],
+      "paramOverrides": {
+        "post:light_soft_focus.amount": 0.08,
+        "post:portrait_vignette.amount": 0.035
+      }
+    }
+  },
+  "compatibility": {
+    "maxFaces": 1,
+    "faceIndex": 0,
+    "blendshapes": []
+  },
+  "photo": {
+    "deterministic": true,
+    "timeSec": 0.5,
+    "seed": 42
+  },
+  "budgets": {
+    "maxNodes": 8,
+    "maxBehaviors": 2,
+    "maxPackageBytes": 65536
+  }
+}

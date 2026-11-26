@@ -1,0 +1,70 @@
+{
+  "schema": "xfilter/3",
+  "id": "ref_face_paint",
+  "name": "Face Paint Reference",
+  "version": "1.0.0",
+  "description": "Reference 468-vertex canonical UV face paint with eye, lip, and mouth-interior protection mask",
+  "requires": {
+    "runtime": 3,
+    "features": [
+      "node.faceMesh@1",
+      "material.faceTexture@1",
+      "blend.alpha@1"
+    ],
+    "faces": 1
+  },
+  "materials": {
+    "mat_paint": {
+      "template": "faceTexture@1",
+      "params": {
+        "map": "paint_texture",
+        "mask": "paint_mask",
+        "uvLayout": "mediapipe_canonical_468_v1",
+        "opacity": 0.9
+      },
+      "blend": "alpha",
+      "depthTest": true,
+      "depthWrite": false
+    }
+  },
+  "nodes": [
+    {
+      "id": "face_paint_node",
+      "type": "faceMesh",
+      "material": "mat_paint",
+      "region": "face_oval",
+      "renderOrder": 1
+    }
+  ],
+  "tiers": {
+    "A": {
+      "textureMaxSize": 1024
+    },
+    "B": {
+      "textureMaxSize": 512
+    },
+    "C": {
+      "textureMaxSize": 256
+    }
+  },
+  "preview": {
+    "path": "preview.jpg",
+    "role": "thumbnail"
+  },
+  "assets": [
+    {
+      "id": "paint_texture",
+      "type": "texture",
+      "path": "assets/paint.png",
+      "sha256": "29004ff8a15d1cc4b31580c39bdc5228252c0126c14adae55feb4a98ef1cd1de",
+      "bytes": 1273
+    },
+    {
+      "id": "paint_mask",
+      "type": "mask",
+      "path": "assets/paint_mask.png",
+      "sha256": "80b601b20840179a63ff76e24db1a66e9b5bbb0bade88316eb93498fb2ad1f17",
+      "bytes": 6047
+    }
+  ]
+}
